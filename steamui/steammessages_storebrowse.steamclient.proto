@@ -1,0 +1,615 @@
+syntax = "proto2";
+
+import "steammessages_base.proto";
+import "steammessages_unified_base.steamclient.proto";
+import "enums_productinfo.proto";
+import "enums.proto";
+import "contenthubs.proto";
+
+option cc_generic_services = true;
+
+service StoreBrowse {
+    rpc GetItems(CStoreBrowse_GetItems_Request) returns (CStoreBrowse_GetItems_Response);
+    rpc GetStoreCategories(CStoreBrowse_GetStoreCategories_Request) returns (CStoreBrowse_GetStoreCategories_Response);
+    rpc GetContentHubConfig(CStoreBrowse_GetContentHubConfig_Request) returns (CStoreBrowse_GetContentHubConfig_Response);
+    rpc GetPriceStops(CStoreBrowse_GetPriceStops_Request) returns (CStoreBrowse_GetPriceStops_Response);
+    rpc GetDLCForApps(CStoreBrowse_GetDLCForApps_Request) returns (CStoreBrowse_GetDLCForApps_Response);
+    rpc GetDLCForAppsSolr(CStoreBrowse_GetDLCForAppsSolr_Request) returns (CStoreBrowse_GetDLCForAppsSolr_Response);
+    rpc GetHardwareItems(CStoreBrowse_GetHardwareItems_Request) returns (CStoreBrowse_GetHardwareItems_Response);
+}
+
+message StoreItemID {
+    optional uint32 appid = 1;
+    optional uint32 packageid = 2;
+    optional uint32 bundleid = 3;
+    optional uint32 tagid = 4;
+    optional uint32 creatorid = 5;
+    optional uint32 hubcategoryid = 6;
+}
+
+message StoreBrowseContext {
+    optional string language = 1;
+    optional int32 elanguage = 2;
+    optional string country_code = 3;
+}
+
+message StoreBrowseItemDataRequest {
+    optional bool include_assets = 1;
+    optional bool include_release = 2;
+    optional bool include_platforms = 3;
+    optional bool include_all_purchase_options = 4;
+    optional bool include_screenshots = 5;
+    optional bool include_trailers = 6;
+    optional bool include_ratings = 7;
+    optional int32 include_tag_count = 8;
+    optional bool include_reviews = 9;
+    optional bool include_basic_info = 10;
+    optional bool include_supported_languages = 11;
+    optional bool include_full_description = 12;
+    optional bool include_included_items = 13;
+    optional StoreBrowseItemDataRequest included_item_data_request = 14;
+    optional bool include_assets_without_overrides = 15;
+    optional bool apply_user_filters = 16;
+    optional bool include_links = 17;
+}
+
+message CStoreBrowse_GetItems_Request {
+    repeated StoreItemID ids = 1;
+    optional StoreBrowseContext context = 2;
+    optional StoreBrowseItemDataRequest data_request = 3;
+}
+
+message StoreItem {
+    optional EStoreItemType item_type = 1;
+    optional uint32 id = 2;
+    optional uint32 success = 3;
+    optional bool visible = 4;
+    optional bool unvailable_for_country_restriction = 5;
+    optional string name = 6;
+    optional string store_url_path = 7;
+    optional uint32 appid = 9;
+    optional EStoreAppType type = 10;
+    repeated EStoreAppType included_types = 11;
+    repeated uint32 included_appids = 12;
+    optional bool is_free = 13;
+    optional bool is_early_access = 14;
+    
+    optional RelatedItems related_items = 15;
+    message RelatedItems {
+        optional uint32 parent_appid = 1;
+        repeated uint32 demo_appid = 2;
+        repeated uint32 standalone_demo_appid = 3;
+        repeated Demo demos = 4;
+        repeated Demo standalone_demos = 5;
+        repeated Playtest playtests = 6;
+    }
+    
+    optional IncludedItems included_items = 16;
+    message IncludedItems {
+        repeated StoreItem included_apps = 1;
+        repeated StoreItem included_packages = 2;
+        repeated StoreItem included_bundles = 3;
+    }
+    
+    repeated EContentDescriptorID content_descriptorids = 20;
+    repeated uint32 tagids = 21;
+    
+    optional Categories categories = 22;
+    message Categories {
+        repeated uint32 supported_player_categoryids = 2;
+        repeated uint32 feature_categoryids = 3;
+        repeated uint32 controller_categoryids = 4;
+    }
+    
+    optional Reviews reviews = 23;
+    message Reviews {
+        optional StoreReviewSummary summary_filtered = 1;
+        message StoreReviewSummary {
+            optional uint32 review_count = 1;
+            optional int32 percent_positive = 2;
+            optional EUserReviewScore review_score = 3;
+            optional string review_score_label = 4;
+        }
+        
+        optional StoreReviewSummary summary_unfiltered = 2;
+        optional StoreReviewSummary summary_language_specific = 3;
+    }
+    
+    optional BasicInfo basic_info = 24;
+    message BasicInfo {
+        optional string short_description = 1;
+        
+        repeated CreatorHomeLink publishers = 2;
+        message CreatorHomeLink {
+            optional string name = 1;
+            optional uint32 creator_clan_account_id = 2;
+        }
+        
+        repeated CreatorHomeLink developers = 3;
+        repeated CreatorHomeLink franchises = 4;
+        optional string capsule_headline = 5;
+    }
+    
+    repeated Tag tags = 25;
+    message Tag {
+        optional uint32 tagid = 1;
+        optional uint32 weight = 2;
+    }
+    
+    optional Assets assets = 30;
+    message Assets {
+        optional string asset_url_format = 1;
+        optional string main_capsule = 2;
+        optional string main_capsule_2x = 18;
+        optional string small_capsule = 3;
+        optional string small_capsule_2x = 19;
+        optional string header = 4;
+        optional string header_2x = 20;
+        optional string package_header = 5;
+        optional string page_background = 6;
+        optional string hero_capsule = 7;
+        optional string hero_capsule_2x = 8;
+        optional string library_capsule = 9;
+        optional string library_capsule_2x = 10;
+        optional string library_hero = 11;
+        optional string library_hero_2x = 12;
+        optional string community_icon = 13;
+        optional string clan_avatar = 14;
+        optional string page_background_path = 15;
+        optional string raw_page_background = 16;
+        optional string edition_comparison = 17;
+    }
+    
+    optional ReleaseInfo release = 31;
+    message ReleaseInfo {
+        optional uint32 steam_release_date = 1;
+        optional uint32 original_release_date = 2;
+        optional uint32 original_steam_release_date = 3;
+        optional uint32 release_from_early_access_date = 11;
+        optional uint32 release_from_early_access_style = 12;
+        optional bool is_coming_soon = 4;
+        optional bool is_preload = 5;
+        optional string custom_release_date_message = 6;
+        optional bool is_abridged_release_date = 7;
+        optional string coming_soon_display = 8;
+        optional bool is_early_access = 10;
+        optional uint32 mac_release_date = 20;
+        optional uint32 linux_release_date = 21;
+        optional bool limited_launch_active = 22;
+    }
+    
+    optional Platforms platforms = 32;
+    message Platforms {
+        optional bool windows = 1;
+        optional bool mac = 2;
+        optional bool steamos_linux = 3;
+        
+        optional VRSupport vr_support = 10;
+        message VRSupport {
+            optional bool vrhmd = 1;
+            optional bool vrhmd_only = 2;
+            optional bool htc_vive = 40;
+            optional bool oculus_rift = 41;
+            optional bool windows_mr = 42;
+            optional bool valve_index = 43;
+        }
+        
+        optional ESteamDeckCompatibilityCategory steam_deck_compat_category = 11;
+        optional ESteamOSCompatibilityCategory steam_os_compat_category = 12;
+    }
+    
+    optional StoreGameRating game_rating = 33;
+    optional bool is_coming_soon = 34;
+    
+    optional PurchaseOption best_purchase_option = 40;
+    message PurchaseOption {
+        optional int32 packageid = 1;
+        optional int32 bundleid = 2;
+        optional string purchase_option_name = 3;
+        optional int64 final_price_in_cents = 5;
+        optional int64 original_price_in_cents = 6;
+        optional string formatted_final_price = 8;
+        optional string formatted_original_price = 9;
+        optional int32 discount_pct = 10;
+        optional int32 bundle_discount_pct = 12;
+        optional bool is_free_to_keep = 13;
+        optional int64 price_before_bundle_discount = 14;
+        optional string formatted_price_before_bundle_discount = 15;
+        
+        repeated Discount active_discounts = 20;
+        message Discount {
+            optional int64 discount_amount = 1;
+            optional string discount_description = 2;
+            optional uint32 discount_end_date = 3;
+        }
+        
+        optional bool user_can_purchase_as_gift = 31;
+        optional bool is_commercial_license = 40;
+        optional bool should_suppress_discount_pct = 41;
+        optional bool hide_discount_pct_for_compliance = 42 [default = false];
+        optional int32 included_game_count = 43 [default = 1];
+        optional int64 lowest_recent_price_in_cents = 44;
+        optional bool requires_shipping = 45;
+        
+        optional RecurrenceInfo recurrence_info = 46;
+        message RecurrenceInfo {
+            optional int32 packageid = 1;
+            optional int32 billing_agreement_type = 2;
+            optional int32 renewal_time_unit = 3;
+            optional int32 renewal_time_period = 4;
+            optional int64 renewal_price_in_cents = 5;
+            optional string formatted_renewal_price = 6;
+        }
+        
+        optional uint32 free_to_keep_ends = 47;
+        optional bool must_purchase_as_set = 48 [default = false];
+        optional string package_group = 49 [default = "default"];
+        optional bool is_edition = 50;
+        optional uint32 free_to_keep_base_package = 51;
+        optional bool price_cannot_be_displayed_as_discount = 52 [default = false];
+        optional int64 price_to_base_discount_on = 53;
+        optional uint32 free_with_master_sub_appid = 54;
+    }
+    
+    repeated PurchaseOption purchase_options = 41;
+    optional PurchaseOption self_purchase_option = 43;
+    
+    optional Screenshots screenshots = 50;
+    message Screenshots {
+        repeated Screenshot all_ages_screenshots = 2;
+        message Screenshot {
+            optional string filename = 1;
+            optional int32 ordinal = 2;
+        }
+        
+        repeated Screenshot mature_content_screenshots = 3;
+    }
+    
+    optional Trailers trailers = 51;
+    message Trailers {
+        repeated Trailer highlights = 1;
+        message Trailer {
+            optional string trailer_name = 1;
+            optional string trailer_url_format = 2;
+            optional ETrailerCategory trailer_category = 13;
+            repeated VideoSource microtrailer = 5;
+            repeated AdaptiveTrailer adaptive_trailers = 6;
+            optional string captions_manifest = 7;
+            optional string screenshot_medium = 10;
+            optional string screenshot_full = 11;
+            optional int32 trailer_base_id = 12;
+            optional bool all_ages = 14;
+        }
+        
+        repeated Trailer other_trailers = 2;
+        
+        message VideoSource {
+            optional string filename = 1;
+            optional string type = 2;
+        }
+        
+        message AdaptiveTrailer {
+            optional string cdn_path = 1;
+            optional string encoding = 2;
+        }
+    }
+    
+    repeated SupportedLanguage supported_languages = 52;
+    message SupportedLanguage {
+        optional int32 elanguage = 1 [default = -1];
+        optional int32 eadditionallanguage = 5 [default = -1];
+        optional bool supported = 2;
+        optional bool full_audio = 3;
+        optional bool subtitles = 4;
+    }
+    
+    optional string store_url_path_override = 53;
+    
+    optional FreeWeekend free_weekend = 54;
+    message FreeWeekend {
+        optional uint32 start_time = 1;
+        optional uint32 end_time = 2;
+        optional string text = 3;
+    }
+    
+    optional bool unlisted = 55;
+    optional uint32 game_count = 56;
+    optional string internal_name = 57;
+    optional string full_description_bbcode = 58;
+    optional bool is_free_temporarily = 59;
+    optional Assets assets_without_overrides = 60;
+    optional StoreBrowseFilterFailure user_filter_failure = 70;
+    
+    repeated Link links = 71;
+    message Link {
+        optional EStoreLinkType link_type = 1;
+        optional string url = 2;
+        optional string text = 3;
+    }
+    
+    optional string purchase_description_bbcode = 72;
+    
+    repeated PackageGroup package_groups = 74;
+    message PackageGroup {
+        optional string name = 1;
+        optional string heading = 2;
+        
+        optional EPackageGroupDisplayType display_type = 3;
+        enum EPackageGroupDisplayType {
+            k_EPackageGroupDisplayType_Default = 0;
+            k_EPackageGroupDisplayType_Dropdown = 1;
+        }
+        
+        optional string dropdown_title = 4;
+        optional string dropdown_description_bbcode = 5;
+    }
+    
+    message Demo {
+        optional uint32 appid = 1;
+        optional string label = 2;
+        optional bool show_above_purchase = 3;
+    }
+    
+    message Playtest {
+        optional uint32 appid = 1;
+        optional bool is_open = 2;
+    }
+}
+
+message StoreGameRating {
+    optional string type = 1;
+    optional string rating = 2;
+    repeated string descriptors = 3;
+    optional string interactive_elements = 4;
+    optional int32 required_age = 10;
+    optional bool use_age_gate = 11;
+    optional string image_url = 20;
+    optional string image_target = 21;
+}
+
+message StoreBrowseFilterFailure {
+    optional EStoreBrowseFilterFailure filter_failure = 1 [default = k_EStoreBrowseFilterFailure_None];
+    optional bool already_owned = 5;
+    optional bool on_wishlist = 6;
+    optional bool ignored = 7;
+    optional bool not_in_users_language = 10;
+    optional bool not_on_users_platform = 11;
+    optional bool demo_for_owned_game = 12;
+    optional bool dlc_for_unowned_game = 13;
+    optional bool nonpreferred_product_type = 20;
+    repeated uint32 excluded_tagids = 21;
+    repeated EContentDescriptorID excluded_content_descriptorids = 30;
+}
+
+message CStoreBrowse_GetItems_Response {
+    repeated StoreItem store_items = 1;
+}
+
+message CStoreBrowse_GetStoreCategories_Request {
+    optional string language = 1;
+    optional int32 elanguage = 2 [default = -1];
+}
+
+message CStoreBrowse_GetStoreCategories_Response {
+    repeated Category categories = 1;
+    message Category {
+        optional uint32 categoryid = 1;
+        optional EStoreCategoryType type = 2;
+        optional string internal_name = 3;
+        optional string display_name = 4;
+        optional string image_url = 5;
+        optional bool show_in_search = 6;
+        optional bool computed = 7;
+        optional string edit_url = 8;
+        optional uint32 edit_sort_order = 9;
+    }
+}
+
+message CStoreBrowse_GetContentHubConfig_Request {
+    optional StoreBrowseContext context = 1;
+    repeated EContentDescriptorID excluded_content_descriptorids = 2;
+}
+
+message CStoreBrowse_GetContentHubConfig_Response {
+    repeated ContentHubConfig hubconfigs = 1;
+    message ContentHubConfig {
+        optional uint32 hubcategoryid = 1;
+        optional string type = 2;
+        optional string handle = 3;
+        optional string display_name = 4;
+        optional string url_path = 5;
+        repeated uint32 replaces_tags = 6;
+        repeated uint32 must_have_tags = 7;
+        repeated uint32 any_one_of_tags = 8;
+        repeated uint32 must_not_have_tags = 9;
+        optional string hub_description = 10;
+    }
+}
+
+message CStoreBrowse_GetPriceStops_Request {
+    optional string country_code = 1;
+    optional string currency_code = 2;
+}
+
+message CStoreBrowse_GetPriceStops_Response {
+    repeated PriceStop price_stops = 1;
+    message PriceStop {
+        optional string formatted_amount = 1;
+        optional int64 amount_in_cents = 2;
+    }
+    
+    optional string currency_code = 2;
+}
+
+message CStoreBrowse_GetDLCForApps_Request {
+    optional StoreBrowseContext context = 1;
+    optional CStorePageFilter store_page_filter = 2;
+    repeated StoreItemID appids = 3;
+    optional uint64 steamid = 4;
+}
+
+message CStoreBrowse_GetDLCForApps_Response {
+    repeated DLCData dlc_data = 1;
+    message DLCData {
+        optional uint32 appid = 1;
+        optional uint32 parentappid = 2;
+        optional uint32 release_date = 3;
+        optional bool coming_soon = 4;
+        optional int64 price = 5;
+        optional uint32 discount = 6;
+        optional bool free = 7;
+    }
+    
+    repeated PlaytimeForApp playtime = 2;
+    message PlaytimeForApp {
+        optional uint32 appid = 1;
+        optional uint32 playtime = 2;
+        optional uint32 last_played = 3;
+    }
+}
+
+message CStoreBrowse_GetDLCForAppsSolr_Request {
+    optional StoreBrowseContext context = 1;
+    repeated uint32 appids = 2;
+    optional string flavor = 3;
+    optional uint32 count = 4;
+    optional CStorePageFilter store_page_filter = 5;
+}
+
+message CStoreBrowse_GetDLCForAppsSolr_Response {
+    repeated DLCList dlc_lists = 1;
+    message DLCList {
+        optional uint32 parent_appid = 1;
+        repeated uint32 dlc_appids = 2;
+    }
+}
+
+message CStoreBrowse_GetHardwareItems_Request {
+    repeated uint32 packageid = 1;
+    optional StoreBrowseContext context = 2;
+}
+
+message CHardwarePackageDetails {
+    optional uint32 packageid = 1;
+    optional bool inventory_available = 3;
+    optional bool high_pending_orders = 4;
+    optional bool account_restricted_from_purchasing = 5;
+    optional bool requires_reservation = 6;
+    optional uint32 rtime_estimated_notification = 7;
+    optional string notificaton_token = 8;
+    optional int32 reservation_state = 9;
+    optional bool expired = 10;
+    optional uint32 time_expires = 11;
+    optional uint32 time_reserved = 12;
+    optional bool allow_quantity_purchase = 13;
+    optional int32 max_quantity_per_purchase = 14;
+    optional bool allow_purchase_in_country = 15;
+    optional uint32 estimated_delivery_soonest_business_days = 17;
+    optional uint32 estimated_delivery_latest_business_days = 18;
+    optional bool not_allowed_to_reserved_because_already_owned = 19;
+    optional uint32 appid_ownership_not_allowed_to_reserve = 20;
+    optional uint32 account_first_date_purchase_requirement = 21;
+}
+
+message CStoreBrowse_GetHardwareItems_Response {
+    repeated CHardwarePackageDetails details = 1;
+}
+
+enum EStoreItemType {
+    k_EStoreItemType_Invalid = -1;
+    k_EStoreItemType_App = 0;
+    k_EStoreItemType_Package = 1;
+    k_EStoreItemType_Bundle = 2;
+    k_EStoreItemType_Mtx = 3;
+    k_EStoreItemType_Tag = 4;
+    k_EStoreItemType_Creator = 5;
+    k_EStoreItemType_HubCategory = 6;
+}
+
+enum EStoreAppType {
+    k_EStoreAppType_Game = 0;
+    k_EStoreAppType_Demo = 1;
+    k_EStoreAppType_Mod = 2;
+    k_EStoreAppType_Movie = 3;
+    k_EStoreAppType_DLC = 4;
+    k_EStoreAppType_Guide = 5;
+    k_EStoreAppType_Software = 6;
+    k_EStoreAppType_Video = 7;
+    k_EStoreAppType_Series = 8;
+    k_EStoreAppType_Episode = 9;
+    k_EStoreAppType_Hardware = 10;
+    k_EStoreAppType_Music = 11;
+    k_EStoreAppType_Beta = 12;
+    k_EStoreAppType_Tool = 13;
+    k_EStoreAppType_Advertising = 14;
+}
+
+enum EUserReviewScore {
+    k_EUserReviewScore_None = 0;
+    k_EUserReviewScore_OverwhelminglyNegative = 1;
+    k_EUserReviewScore_VeryNegative = 2;
+    k_EUserReviewScore_Negative = 3;
+    k_EUserReviewScore_MostlyNegative = 4;
+    k_EUserReviewScore_Mixed = 5;
+    k_EUserReviewScore_MostlyPositive = 6;
+    k_EUserReviewScore_Positive = 7;
+    k_EUserReviewScore_VeryPositive = 8;
+    k_EUserReviewScore_OverwhelminglyPositive = 9;
+}
+
+enum ETrailerCategory {
+    k_ETrailerCategory_Invalid = 0;
+    k_ETrailerCategory_Gameplay = 1;
+    k_ETrailerCategory_Teaser = 2;
+    k_ETrailerCategory_Cinematic = 3;
+    k_ETrailerCategory_Update = 4;
+    k_ETrailerCategory_Accolades = 5;
+    k_ETrailerCategory_Interview = 6;
+}
+
+enum EStoreBrowseFilterFailure {
+    k_EStoreBrowseFilterFailure_None = 0;
+    k_EStoreBrowseFilterFailure_Redundant = 10;
+    k_EStoreBrowseFilterFailure_NotPreferred = 20;
+    k_EStoreBrowseFilterFailure_NotInterested = 30;
+    k_EStoreBrowseFilterFailure_UnwantedContent = 40;
+    k_EStoreBrowseFilterFailure_Unavailable = 50;
+}
+
+enum EStoreLinkType {
+    k_EStoreLinkType_None = 0;
+    k_EStoreLinkType_YouTube = 1;
+    k_EStoreLinkType_Facebook = 2;
+    k_EStoreLinkType_Twitter = 3;
+    k_EStoreLinkType_Twitch = 4;
+    k_EStoreLinkType_Discord = 5;
+    k_EStoreLinkType_QQ = 6;
+    k_EStoreLinkType_VK = 7;
+    k_EStoreLinkType_Bilibili = 8;
+    k_EStoreLinkType_Weibo = 9;
+    k_EStoreLinkType_Reddit = 10;
+    k_EStoreLinkType_Instagram = 11;
+    k_EStoreLinkType_Tumblr = 12;
+    k_EStoreLinkType_Tieba = 13;
+    k_EStoreLinkType_Tiktok = 14;
+    k_EStoreLinkType_Telegram = 15;
+    k_EStoreLinkType_LinkedIn = 16;
+    k_EStoreLinkType_WeChat = 17;
+    k_EStoreLinkType_QQLink = 18;
+    k_EStoreLinkType_Douyin = 19;
+    k_EStoreLinkType_Bluesky = 20;
+    k_EStoreLinkType_Mastodon = 21;
+    k_EStoreLinkType_Threads = 22;
+    k_EStoreLinkType_QQChannel = 23;
+    k_EStoreLinkType_RedNote = 24;
+    k_EStoreLinkType_MAX = 25;
+}
+
+enum EStoreCategoryType {
+    k_EStoreCategoryType_Category = 0;
+    k_EStoreCategoryType_SupportedPlayers = 1;
+    k_EStoreCategoryType_Feature = 2;
+    k_EStoreCategoryType_ControllerSupport = 3;
+    k_EStoreCategoryType_CloudGaming = 4;
+    k_EStoreCategoryType_MAX = 5;
+}

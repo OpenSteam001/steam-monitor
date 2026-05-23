@@ -1,0 +1,28 @@
+syntax = "proto2";
+
+import "steammessages_base.proto";
+import "webuimessages_base.proto";
+
+option cc_generic_services = true;
+option optimize_for = SPEED;
+
+service Achievements {
+    rpc GetInfo(CAchievements_GetInfo_Request) returns (CAchievements_GetInfo_Response);
+}
+
+message CAchievements_GetInfo_Request {
+    optional uint64 gameid = 1;
+}
+
+message CAchievements_GetInfo_Response {
+    repeated Info achievements = 1;
+    message Info {
+        optional string id = 1;
+        optional string name = 2;
+        optional string desc = 3;
+        optional string image_url_achieved = 4;
+        optional string image_url_not_achieved = 5;
+        optional bool achieved = 6;
+        optional uint32 unlock_time = 7;
+    }
+}

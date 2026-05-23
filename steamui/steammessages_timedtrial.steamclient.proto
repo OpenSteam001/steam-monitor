@@ -1,0 +1,42 @@
+syntax = "proto2";
+
+import "steammessages_base.proto";
+import "steammessages_unified_base.steamclient.proto";
+
+option cc_generic_services = true;
+
+service TimedTrial {
+    rpc GetTimeRemaining(CTimedTrial_GetTimeRemaining_Request) returns (CTimedTrial_GetTimeRemaining_Response);
+    rpc RecordPlaytime(CTimedTrial_RecordPlaytime_Request) returns (CTimedTrial_RecordPlaytime_Response);
+    rpc ResetPlaytime(CTimedTrial_ResetPlaytime_Request) returns (CTimedTrial_ResetPlaytime_Response);
+}
+
+message CTimedTrial_GetTimeRemaining_Request {
+    optional uint32 appid = 1;
+}
+
+message CTimedTrial_GetTimeRemaining_Response {
+    optional uint32 seconds_played = 1;
+    optional uint32 seconds_allowed = 2;
+    optional uint32 packageid = 3;
+    optional uint32 mastersub_appid = 4;
+}
+
+message CTimedTrial_RecordPlaytime_Request {
+    optional uint32 appid = 1;
+    optional uint32 seconds_played = 2;
+}
+
+message CTimedTrial_RecordPlaytime_Response {
+    optional uint32 seconds_played = 1;
+    optional uint32 seconds_allowed = 2;
+}
+
+message CTimedTrial_ResetPlaytime_Request {
+    optional uint32 appid = 1;
+}
+
+message CTimedTrial_ResetPlaytime_Response {
+    optional uint32 seconds_played = 1;
+    optional uint32 seconds_allowed = 2;
+}

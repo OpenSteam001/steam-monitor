@@ -1,0 +1,347 @@
+syntax = "proto2";
+
+import "google/protobuf/descriptor.proto";
+import "enums.proto";
+
+option cc_generic_services = true;
+option optimize_for = SPEED;
+
+message CMsgHotkey {
+    optional uint32 key_code = 1;
+    optional bool alt_key = 2;
+    optional bool shift_key = 3;
+    optional bool ctrl_key = 4;
+    optional bool meta_key = 5;
+    optional string display_name = 6;
+}
+
+message CMsgSettingVariant {
+    oneof value {
+        bool value_bool = 1;
+        int32 value_int32 = 2;
+        uint32 value_uint32 = 3;
+        int64 value_uint64 = 5;
+        float value_float = 6;
+        string value_string = 7;
+        CMsgHotkey value_hotkey = 8;
+    }
+}
+
+message CMsgClientSettings {
+    optional bool no_save_personal_info = 1;
+    optional bool in_client_beta = 3;
+    optional bool is_steam_sideloaded = 4;
+    optional string preferred_monitor = 5;
+    optional bool steam_cef_gpu_blocklist_disabled = 6;
+    optional bool bigpicture_windowed = 7;
+    optional string display_name = 8;
+    optional bool is_external_display = 9;
+    optional float steam_os_underscan_level = 10;
+    optional bool steam_os_underscan_enabled = 11;
+    optional float min_scale_factor = 12;
+    optional float max_scale_factor = 13;
+    optional float auto_scale_factor = 14;
+    optional bool small_mode = 16;
+    optional bool skip_steamvr_install_dialog = 19;
+    optional bool always_show_user_chooser = 20;
+    optional bool os_version_unsupported = 21;
+    optional bool show_family_sharing_notifications = 3000;
+    optional bool show_copy_count_in_library = 3001;
+    optional int32 overlay_fps_counter_corner = 4000;
+    optional bool overlay_fps_counter_high_contrast = 4001;
+    optional CMsgHotkey overlay_key = 4002;
+    optional CMsgHotkey screenshot_key = 4003;
+    optional bool enable_overlay = 4004;
+    optional bool enable_screenshot_notification = 4006;
+    optional bool enable_screenshot_sound = 4007;
+    optional bool save_uncompressed_screenshots = 4008;
+    optional string screenshots_path = 4009;
+    optional int32 default_ping_rate = 4010;
+    optional int32 server_ping_rate = 4011;
+    optional int32 steam_networking_share_ip = 4012;
+    optional string web_browser_home = 4013;
+    optional string voice_mic_device_name = 4014;
+    optional float voice_mic_input_gain = 4015;
+    optional float voice_speaker_output_gain = 4016;
+    optional int32 voice_push_to_talk_setting = 4017;
+    optional CMsgHotkey voice_push_to_talk_key = 4018;
+    optional bool overlay_toolbar_list_view = 4019;
+    optional bool always_use_gamepadui_overlay = 4020;
+    optional string overlay_tabs = 4021;
+    optional bool overlay_scale_interface = 4022;
+    optional bool overlay_restore_browser_tabs = 4023;
+    optional bool enable_avif_screenshots = 4024;
+    optional int32 overlay_fps_counter_detail_level = 4025;
+    optional float overlay_fps_counter_saturation_factor = 4026;
+    optional float overlay_fps_counter_bgopacity = 4027;
+    optional float overlay_fps_counter_scale_factor = 4028;
+    optional CMsgHotkey overlay_fps_counter_key = 4029;
+    optional bool overlay_fps_counter_fps_graph = 4030;
+    optional bool overlay_fps_counter_cpu_graph = 4031;
+    optional bool overlay_fps_counter_allow_km_driver = 4032;
+    optional bool achievement_notification_toast = 4033;
+    optional bool achievement_notification_sound = 4034;
+    optional bool controllerconnect_notification_toast = 4035;
+    optional bool controllerconnect_notification_sound = 4036;
+    optional bool controller_low_battery_notification_toast = 4037;
+    optional bool controller_low_battery_notification_sound = 4038;
+    optional bool smooth_scroll_webviews = 5000;
+    optional bool enable_gpu_accelerated_webviews = 5001;
+    optional bool enable_hardware_video_decoding = 5003;
+    optional bool run_at_startup = 5004;
+    optional bool enable_dpi_scaling = 5005;
+    optional bool enable_marketing_messages = 5006;
+    optional bool start_in_big_picture_mode = 5007;
+    optional uint32 jumplist_flags = 5008;
+    optional bool enable_ui_sounds = 5009;
+    optional bool enable_gamescope_composer = 5010;
+    optional bool enable_gamescope_composer_vr = 5011;
+    optional bool show_switch_to_desktop_at_login = 5012;
+    optional bool enable_steamrt64_client = 5013;
+    optional bool disable_all_toasts = 6000;
+    optional bool disable_toasts_in_game = 6001;
+    optional bool play_sound_on_toast = 6002;
+    optional int32 library_display_size = 7000;
+    optional bool library_whats_new_show_only_product_updates = 7001;
+    optional bool show_store_content_on_home = 7002;
+    optional string start_page = 7003;
+    optional bool library_low_bandwidth_mode = 7004;
+    optional bool library_low_perf_mode = 7005;
+    optional bool library_disable_community_content = 7006;
+    optional bool library_display_icon_in_game_list = 7007;
+    optional bool ready_to_play_includes_streaming = 7008;
+    optional bool show_steam_deck_info = 7009;
+    optional bool enable_shader_precache = 8000;
+    optional bool enable_shader_background_processing = 8001;
+    optional uint64 shader_precached_size = 8002;
+    optional bool needs_steam_service_repair = 8003;
+    optional int32 download_peer_content = 8004;
+    optional bool download_rate_bits_per_s = 8005;
+    optional bool restrict_auto_updates = 8006;
+    optional int32 restrict_auto_updates_start = 8007;
+    optional int32 restrict_auto_updates_end = 8008;
+    optional int32 download_region = 8009;
+    optional bool download_while_app_running = 8010;
+    optional bool download_throttle_while_streaming = 8011;
+    optional int32 download_throttle_rate = 8012;
+    optional int32 default_app_update_behavior = 8013;
+    optional bool cloud_enabled = 10000;
+    optional bool show_screenshot_manager = 10001;
+    optional int32 music_volume = 11000;
+    optional bool music_pause_on_app_start = 11001;
+    optional bool music_pause_on_voice_chat = 11002;
+    optional bool music_download_high_quality = 11003;
+    optional EBroadcastPermission broadcast_permissions = 12000;
+    optional int32 broadcast_output_width = 12001;
+    optional int32 broadcast_output_height = 12002;
+    optional int32 broadcast_bitrate = 12003;
+    optional EBroadcastEncoderSetting broadcast_encoding_option = 12004;
+    optional bool broadcast_record_all_video = 12005;
+    optional bool broadcast_record_all_audio = 12006;
+    optional bool broadcast_record_microphone = 12007;
+    optional bool broadcast_show_upload_stats = 12008;
+    optional bool broadcast_show_live_reminder = 12009;
+    optional int32 broadcast_chat_corner = 12010;
+    optional bool gamestream_hardware_video_encode = 13000;
+    optional bool gamestream_enable_video_h265 = 13001;
+    optional bool steam_input_configurator_error_msg_enable = 14001;
+    optional bool controller_guide_button_focus_steam = 14002;
+    optional int32 controller_ps_support = 14003;
+    optional bool controller_xbox_support = 14004;
+    optional bool controller_xbox_driver = 14005;
+    optional bool controller_switch_support = 14006;
+    optional bool controller_generic_support = 14007;
+    optional int32 controller_power_off_timeout = 14008;
+    optional bool turn_off_controller_on_exit = 14009;
+    optional bool controller_combine_nintendo_joycons = 14010;
+    optional bool controller_enable_chord = 140011;
+    optional bool controller_poll_rate = 140012;
+    optional bool controller_siapi_config_author_mode = 140013;
+    optional bool controller_show_ibex_tour = 140014;
+    optional string controller_chat_radial_menu_option_0 = 140030;
+    optional string controller_chat_radial_menu_option_1 = 140031;
+    optional string controller_chat_radial_menu_option_2 = 140032;
+    optional string controller_chat_radial_menu_option_3 = 140033;
+    optional string controller_chat_radial_menu_option_4 = 140034;
+    optional string controller_chat_radial_menu_option_5 = 140035;
+    optional string controller_chat_radial_menu_option_6 = 140036;
+    optional string controller_chat_radial_menu_option_7 = 140037;
+    optional uint64 startup_movie_id = 16000;
+    optional string startup_movie_local_path = 16001;
+    optional bool startup_movie_shuffle = 16002;
+    optional bool startup_movie_used_for_resume = 16003;
+    optional bool game_notes_enable_spellcheck = 17001;
+    optional int32 screenshot_items_per_row = 18000;
+    optional string gamerecording_background_path = 18201;
+    optional string gamerecording_background_max_keep = 18202;
+    optional int32 gamerecording_background_time_resolution = 18203;
+    optional CMsgHotkey gamerecording_background_mk = 18207;
+    optional CMsgHotkey gamerecording_background_tg = 18208;
+    optional bool gamerecording_background_a_m = 18209;
+    optional string gamerecording_video_bitrate = 18210;
+    optional EGRMode gamerecording_background_mode = 18212;
+    optional EGRAudio gamerecording_background_audio = 18213;
+    optional int32 gamerecording_max_fps = 18214;
+    optional CMsgHotkey gamerecording_hotkey_ic = 18215;
+    optional float gamerecording_ic_seconds = 18216;
+    optional EGRExportLimitType gamerecording_export_limit_type = 18217;
+    optional int32 gamerecording_export_limit_size_mb = 18218;
+    optional int32 gamerecording_export_limit_bitrate = 18219;
+    optional int32 gamerecording_export_limit_width = 18220;
+    optional int32 gamerecording_export_limit_height = 18221;
+    optional int32 gamerecording_export_limit_frame_rate = 18222;
+    optional string gamerecording_export_directory = 18223;
+    optional EExportCodec gamerecording_export_codec = 18224;
+    optional int32 gamerecording_video_maxheight = 18225;
+    optional bool gamerecording_force_mic_mono = 18226;
+    optional bool gamerecording_automatic_gain_control = 18227;
+    optional bool show_timestamps_in_console = 20000;
+    optional int32 override_browser_composer_mode = 20002;
+    optional bool cef_remote_debugging_enabled = 20003;
+    optional bool force_deck_perf_tab = 20004;
+    optional bool force_fake_mandatory_update = 20005;
+    optional bool hdr_compat_testing = 20006;
+    optional bool developer_mode_enabled = 20007;
+    optional bool show_advanced_update_channels = 20008;
+    optional bool browserview_underlays_allowed = 20009;
+    optional EHDRVisualization gamescope_hdr_visualization = 21001;
+    optional int32 gamescope_app_target_framerate = 21002;
+    optional bool gamescope_enable_app_target_framerate = 21003;
+    optional bool gamescope_disable_framelimit = 21004;
+    optional int32 gamescope_display_refresh_rate = 21005;
+    optional bool gamescope_use_game_refresh_rate_in_steam = 21006;
+    optional bool gamescope_disable_mura_correction = 21007;
+    optional bool gamescope_include_steamui_in_screenshots = 21008;
+    optional bool gamescope_allow_tearing = 21009;
+    optional bool gamescope_composite_debug = 21010;
+    optional bool gamescope_force_composite = 21011;
+    optional string gamescope_game_resolution_global = 21012;
+    optional CMsgHotkey gamescope_guide_hotkey = 21013;
+    optional CMsgHotkey gamescope_qam_hotkey = 21014;
+    optional bool gamescope_hdr_enabled = 21015;
+    optional bool gamescope_native_external_res_in_steam = 21016;
+    optional int32 steamos_status_led_brightness = 22000;
+    optional bool steamos_tdp_limit_enabled = 22001;
+    optional int32 steamos_tdp_limit = 22002;
+    optional bool steamos_cec_enabled = 22003;
+    optional bool steamos_cec_wake_on_resume = 22004;
+    optional bool steamos_wifi_debug = 22005;
+    optional bool steamos_wifi_force_wpa_supplicant = 22006;
+    optional int32 steamos_magnifier_scale = 22007;
+    optional bool steamos_manual_gpu_clock_enabled = 22008;
+    optional int32 steamos_manual_gpu_clock_hz = 22009;
+    optional string steamos_platform_performance_profile = 22010;
+    optional bool steamos_charge_limit_enabled = 22011;
+    optional int32 steamos_charge_limit = 22012;
+    optional bool steamos_charge_limit_devmode = 22013;
+    optional bool steamos_system_tracing_enabled = 22014;
+    optional bool steamos_vrs_enabled = 22015;
+    optional bool steamos_separate_led_colors = 22016;
+    optional bool steamos_wifi_reload_wifi_driver_on_sleep = 22017;
+    optional bool steamos_wifi_power_management_enabled = 220018;
+    optional bool setting_validation_bool = 23001;
+    optional EHDRVisualization setting_validation_enum = 23002;
+    optional int32 setting_validation_int32 = 23003;
+    optional uint32 setting_validation_uint32 = 23004;
+    optional uint64 setting_validation_uint64 = 23005;
+    optional float setting_validation_float = 23006;
+    optional string setting_validation_string = 23007;
+    optional CMsgHotkey setting_validation_hotkey = 23008;
+    optional bool system_bluetooth_enabled = 24000;
+    optional bool hardware_updater_enabled = 24001;
+    optional int32 system_idle_suspend_battery_sec = 24003;
+    optional int32 system_idle_suspend_ac_sec = 24004;
+    optional bool system_enable_low_power_downloads = 24005;
+    optional bool system_allow_battery_low_power_downloads = 24006;
+    optional int32 system_idle_screensaver_battery_sec = 24008;
+    optional int32 system_idle_screensaver_ac_sec = 24009;
+    optional bool vr_show_perf_graph_in_hmd = 25000;
+    optional bool vr_audio_spatialize = 25001;
+    optional bool vr_audio_spatialize_surround = 25002;
+    optional bool accessibility_debug_visualizer = 26000;
+    optional bool accessibility_screen_reader_enabled = 26001;
+    optional float accessibility_screen_reader_rate = 26002;
+    optional float accessibility_screen_reader_pitch = 26003;
+    optional float accessibility_screen_reader_volume = 26004;
+    optional bool accessibility_high_contrast_mode = 26005;
+    optional bool accessibility_reduce_motion = 26006;
+    optional uint32 accessibility_minimum_font_size = 26008;
+    optional string accessibility_color_filter_name = 26009;
+    optional float accessibility_desktop_ui_scale = 26010;
+    optional string accessibility_screen_reader_locale = 26011;
+    optional bool accessibility_mono_audio = 26012;
+    optional bool remote_play_wifi_ap_enabled = 27000;
+    optional int32 remote_play_wifi_ap_channel_5ghz = 27001;
+    optional int32 remote_play_wifi_ap_channel_6ghz = 27002;
+    optional int32 remote_play_wifi_ap_channel_width = 27003;
+    optional bool remote_play_wifi_ap_hotspot_mode = 27004;
+    optional string remote_play_wifi_ap_hotspot_ssid = 27005;
+    optional string remote_play_wifi_ap_hotspot_password = 27006;
+    optional string remote_play_wifi_ap_hotspot_routing = 27007;
+    optional bool remote_play_wifi_ap_show_advanced = 27008;
+    optional string remote_play_wifi_ap_paired_ssid = 27009;
+    optional bool skip_steamframe_pairing_dialog = 27010;
+    optional bool oobe_completed = 28001;
+    optional bool oobe_test_mode_enabled = 28002;
+    optional bool force_oobe = 28003;
+    optional bool oobe_stage_2_completed = 28004;
+    optional bool oobe_stage_2_test_mode_enabled = 28005;
+    optional bool force_stage_2_oobe = 28006;
+}
+
+enum EClientSettingStore {
+    k_EClientSettingStore_Invalid = 0;
+    k_EClientSettingStore_ConfigStore_Install = 1;
+    k_EClientSettingStore_ConfigStore_UserRoaming = 2;
+    k_EClientSettingStore_ConfigStore_UserLocal = 3;
+    k_EClientSettingStore_Registry = 4;
+    k_EClientSettingStore_CustomFunc = 5;
+}
+
+enum EOverlayToggleBarLocation {
+    k_EOverlayToggleBarLocation_Bottom = 0;
+    k_EOverlayToggleBarLocation_Left = 1;
+    k_EOverlayToggleBarLocation_Right = 2;
+    k_EOverlayToggleBarLocation_Top = 3;
+}
+
+enum ESettingProfileMode {
+    k_ESettingProfileMode_None = 0;
+    k_ESettingProfileMode_PerGame = 1;
+    k_ESettingProfileMode_PerGamePerDisplay = 2;
+    k_ESettingProfileMode_PerDisplay = 3;
+}
+
+enum EGRAudio {
+    k_EGRAudio_Game = 0;
+    k_EGRAudio_System = 1;
+    k_EGRAudio_Select = 2;
+}
+
+enum EGRExportLimitType {
+    k_EGRExportLimitType_Native = 0;
+    k_EGRExportLimitType_FileSize = 1;
+    k_EGRExportLimitType_Advanced = 2;
+}
+
+enum EFrameRateReportEnabled {
+    k_EFrameRateReportEnabled_Unset = 0;
+    k_EFrameRateReportEnabled_Enabled = 1;
+    k_EFrameRateReportEnabled_Disabled = 2;
+}
+
+extend google.protobuf.FieldOptions {
+    optional EClientSettingStore setting_store = 60000;
+    optional string setting_name = 60001;
+    optional bool setting_pre_login = 60002;
+    optional bool setting_default_bool = 60003;
+    optional int32 setting_default_int = 60004;
+    optional uint32 setting_default_uint = 60005;
+    optional float setting_default_float = 60006;
+    optional string setting_default_string = 60007;
+    optional bool setting_readonly = 60008;
+    optional string setting_description = 60009;
+    optional ESettingProfileMode setting_profile_mode = 60010;
+    optional int64 setting_clamp_min = 60011;
+    optional int64 setting_clamp_max = 60012;
+}

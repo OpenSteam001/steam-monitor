@@ -1,0 +1,41 @@
+syntax = "proto2";
+
+import "steammessages_base.proto";
+import "steammessages_unified_base.steamclient.proto";
+
+option cc_generic_services = true;
+
+service CommunityLinkFilter {
+    rpc GetLinkFilterHashPrefixes(CCommunity_GetLinkFilterHashPrefixes_Request) returns (CCommunity_GetLinkFilterHashPrefixes_Response);
+    rpc GetLinkFilterHashes(CCommunity_GetLinkFilterHashes_Request) returns (CCommunity_GetLinkFilterHashes_Response);
+    rpc GetLinkFilterListVersion(CCommunity_GetLinkFilterListVersion_Request) returns (CCommunity_GetLinkFilterListVersion_Response);
+}
+
+message CCommunity_GetLinkFilterHashPrefixes_Request {
+    optional uint32 hit_type = 1;
+    optional uint32 count = 2;
+    optional uint64 start = 3;
+}
+
+message CCommunity_GetLinkFilterHashPrefixes_Response {
+    repeated uint32 hash_prefixes = 1;
+}
+
+message CCommunity_GetLinkFilterHashes_Request {
+    optional uint32 hit_type = 1;
+    optional uint32 count = 2;
+    optional uint64 start = 3;
+}
+
+message CCommunity_GetLinkFilterHashes_Response {
+    repeated bytes hashes = 1;
+}
+
+message CCommunity_GetLinkFilterListVersion_Request {
+    optional uint32 hit_type = 1;
+}
+
+message CCommunity_GetLinkFilterListVersion_Response {
+    optional string version = 1;
+    optional uint64 count = 2;
+}

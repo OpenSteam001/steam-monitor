@@ -1,0 +1,110 @@
+syntax = "proto2";
+
+import "steammessages_base.proto";
+import "steammessages_unified_base.steamclient.proto";
+
+option cc_generic_services = true;
+
+service GameServers {
+    rpc GetServerSteamIDsByIP(CGameServers_GetServerSteamIDsByIP_Request) returns (CGameServers_IPsWithSteamIDs_Response);
+    rpc GetServerIPsBySteamID(CGameServers_GetServerIPsBySteamID_Request) returns (CGameServers_IPsWithSteamIDs_Response);
+    rpc QueryByFakeIP(CGameServers_QueryByFakeIP_Request) returns (CGameServers_GameServerQuery_Response);
+    rpc ReportServerPingReply(CGameServers_ReportServerPingReply_Notification) returns (NoResponse);
+}
+
+service GameServerClient {
+    rpc QueryServerData(GameServerClient_QueryServerData_Request) returns (GameServerClient_QueryServerData_Response);
+}
+
+message CGameServers_GetServerSteamIDsByIP_Request {
+    repeated string server_ips = 1;
+}
+
+message CGameServers_IPsWithSteamIDs_Response {
+    repeated Server servers = 1;
+    message Server {
+        optional string addr = 1;
+        optional fixed64 steamid = 2;
+    }
+}
+
+message CGameServers_GetServerIPsBySteamID_Request {
+    repeated fixed64 server_steamids = 1;
+}
+
+message CGameServers_QueryByFakeIP_Request {
+    optional uint32 fake_ip = 1;
+    optional uint32 fake_port = 2;
+    optional uint32 app_id = 3;
+    
+    optional EQueryType query_type = 4;
+    enum EQueryType {
+        Query_Invalid = 0;
+        Query_Ping = 1;
+        Query_Players = 2;
+        Query_Rules = 3;
+    }
+}
+
+message CMsgGameServerPingQueryData {
+    optional CMsgIPAddress server_ip = 1;
+    optional uint32 query_port = 2;
+    optional uint32 game_port = 3;
+    optional uint32 spectator_port = 4;
+    optional string spectator_server_name = 5;
+    optional string server_name = 6;
+    optional fixed64 steamid = 7;
+    optional uint32 app_id = 8;
+    optional string gamedir = 9;
+    optional string map = 10;
+    optional string game_description = 11;
+    optional string gametype = 12;
+    optional uint32 num_players = 13;
+    optional uint32 max_players = 14;
+    optional uint32 num_bots = 15;
+    optional bool password = 16;
+    optional bool secure = 17;
+    optional bool dedicated = 18;
+    optional string version = 19;
+    optional fixed32 sdr_popid = 20;
+    optional string sdr_location_string = 21;
+}
+
+message CMsgGameServerPlayersQueryData {
+    repeated Player players = 1;
+    message Player {
+        optional string name = 1;
+        optional uint32 score = 2;
+        optional uint32 time_played = 3;
+    }
+}
+
+message CMsgGameServerRulesQueryData {
+    repeated Rule rules = 1;
+    message Rule {
+        optional string rule = 1;
+        optional string value = 2;
+    }
+}
+
+message CGameServers_GameServerQuery_Response {
+    optional CMsgGameServerPingQueryData ping_data = 1;
+    optional CMsgGameServerPlayersQueryData players_data = 2;
+    optional CMsgGameServerRulesQueryData rules_data = 3;
+}
+
+message CGameServers_ReportServerPingReply_Notification {
+    optional CMsgGameServerPingQueryData server_data = 1;
+    optional uint32 ping_ms = 2;
+    optional string client_sdr_location_string = 3;
+}
+
+message GameServerClient_QueryServerData_Request {
+    
+}
+
+message GameServerClient_QueryServerData_Response {
+    optional CMsgGameServerPingQueryData ping_data = 1;
+    optional CMsgGameServerPlayersQueryData players_data = 2;
+    optional CMsgGameServerRulesQueryData rules_data = 3;
+}

@@ -1,0 +1,105 @@
+syntax = "proto2";
+
+import "steammessages_base.proto";
+import "steammessages_unified_base.steamclient.proto";
+
+option cc_generic_services = true;
+
+service Shader {
+    rpc GetShaderReportingCadence(CShader_GetShaderReportingCadence_Request) returns (CShader_GetShaderReportingCadence_Response);
+    rpc RegisterShader(CShader_RegisterShader_Request) returns (CShader_RegisterShader_Response);
+    rpc SendShader(CShader_SendShader_Request) returns (CShader_SendShader_Response);
+    rpc GetBucketManifest(CShader_GetBucketManifest_Request) returns (CShader_GetBucketManifest_Response);
+    rpc GetStaleBucket(CShader_GetStaleBucket_Request) returns (CShader_GetStaleBucket_Response);
+    rpc ReportExternalBuild(CShader_ReportExternalBuild_Request) returns (CShader_ReportExternalBuild_Response);
+    rpc ReportBucketProcessingComplete(CShader_ReportBucketProcessingComplete_Request) returns (CShader_ReportBucketProcessingComplete_Response);
+}
+
+message CShader_GetShaderReportingCadence_Request {
+    
+}
+
+message CShader_GetShaderReportingCadence_Response {
+    optional uint64 rereport_time_threshold = 1;
+    optional uint32 percent_to_rereport = 2;
+}
+
+message CShader_RegisterShader_Request {
+    optional uint32 appid = 1;
+    optional string gpu_desc = 2;
+    optional string driver_desc = 3;
+    
+    repeated Shader shaders = 4;
+    message Shader {
+        optional bytes cache_key_sha = 1;
+        optional bytes shader_code_sha = 2;
+    }
+}
+
+message CShader_RegisterShader_Response {
+    repeated uint32 requested_codeids = 1;
+}
+
+message CShader_SendShader_Request {
+    optional uint32 appid = 1;
+    
+    repeated ShaderCode shaders = 2;
+    message ShaderCode {
+        optional bytes shader_code_sha = 1;
+        optional bytes shader_code = 2;
+    }
+}
+
+message CShader_SendShader_Response {
+    
+}
+
+message CShader_GetBucketManifest_Request {
+    optional uint32 appid = 1;
+    optional string gpu_desc = 2;
+    optional string driver_desc = 3;
+}
+
+message CShader_GetBucketManifest_Response {
+    optional uint64 manifestid = 1;
+    optional uint64 depotsize = 2;
+    optional uint64 bucketid = 3;
+}
+
+message CShader_GetStaleBucket_Request {
+    optional string gpu_desc = 1;
+    optional string driver_desc = 2;
+}
+
+message CShader_GetStaleBucket_Response {
+    optional uint64 bucketid = 1;
+    optional uint32 appid = 2;
+    optional uint64 manifestid = 3;
+    optional string gpu_desc = 4;
+    optional string driver_desc = 5;
+    optional bytes depot_encryption_key = 6;
+}
+
+message CShader_ReportExternalBuild_Request {
+    optional uint32 appid = 1;
+    optional string gpu_desc = 2;
+    optional string driver_desc = 3;
+    optional uint64 manifestid = 4;
+    optional string source_gpu_desc = 5;
+    optional string source_driver_desc = 6;
+    optional uint64 depotsize = 7;
+}
+
+message CShader_ReportExternalBuild_Response {
+    
+}
+
+message CShader_ReportBucketProcessingComplete_Request {
+    optional uint32 appid = 1;
+    optional string gpu_desc = 2;
+    optional string driver_desc = 3;
+}
+
+message CShader_ReportBucketProcessingComplete_Response {
+    
+}

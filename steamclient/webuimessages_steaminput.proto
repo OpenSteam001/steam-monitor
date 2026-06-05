@@ -30,7 +30,6 @@ service SteamInputManager {
     rpc StartGyroSoftwareCalibration(CSteamInputService_GyroSoftwareCalibration_Request) returns (CSteamInputService_GyroSoftwareCalibration_Response);
     rpc CancelGyroSoftwareCalibration(CSteamInputService_GyroSoftwareCalibration_Request) returns (CSteamInputService_GyroSoftwareCalibration_Response);
     rpc PairDongleTritonConnected(CSteamInputService_PairDongleTritonConnected_Request) returns (CSteamInputService_PairDongleTritonConnected_Response);
-    rpc PairDongleTritonDocked(CSteamInputService_PairDongleTritonDocked_Request) returns (CSteamInputService_PairDongleTritonDocked_Response);
     rpc GetDongles(CSteamInputService_GetDongles_Request) returns (CSteamInputService_GetDongles_Response);
     rpc ShouldTritonPairInOobe(CSteamInputService_ShouldTritonPairInOobe_Request) returns (CSteamInputService_ShouldTritonPairInOobe_Response);
     rpc WaitInitialControllerStateEnumerated(CSteamInputService_WaitInitialControllerStateEnumerated_Request) returns (CSteamInputService_WaitInitialControllerStateEnumerated_Response);
@@ -200,15 +199,6 @@ message CSteamInputService_TritonUndocked_Notification {
 
 message CSteamInputService_ControllerPairingChanged_Notification {
     optional uint32 controller_index = 1;
-}
-
-message CSteamInputService_PairDongleTritonDocked_Request {
-    optional uint32 docked_puck_index = 1;
-    optional uint32 target_dongle_index = 2;
-}
-
-message CSteamInputService_PairDongleTritonDocked_Response {
-    
 }
 
 message CSteamInputService_GetDongles_Request {
@@ -431,13 +421,9 @@ message CSteamInputService_ControllerBatteryState_Notification {
 }
 
 enum ETritonPairType {
-    k_ETritonPairType_Unknown = 0;
-    k_ETritonPairType_None = 1;
-    k_ETritonPairType_RePairToSteamMachineWired = 2;
-    k_ETritonPairType_RePairToSteamMachineDocked = 3;
-    k_ETritonPairType_RePairToSteamMachineWireless = 4;
-    k_ETritonPairType_PairToPuckWired = 5;
-    k_ETritonPairType_PairToPuckDocked = 6;
+    k_ETritonPairType_None = 0;
+    k_ETritonPairType_Wired = 1;
+    k_ETritonPairType_Wireless = 2;
 }
 
 enum ETritonConnectionType {

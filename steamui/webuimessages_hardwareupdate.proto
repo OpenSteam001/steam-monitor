@@ -35,7 +35,7 @@ message CHardwareUpdate_CheckForUpdates_Request {
 }
 
 message CMsgAvailableHardwareUpdate {
-    optional uint32 etype = 1;
+    optional EHardwareUpdateDeviceType etype = 1;
     optional uint32 hardware_id = 2;
     optional string serial_number = 3;
     optional string current_ts = 4;
@@ -70,4 +70,14 @@ message CHardwareUpdate_PrepForUpdate_Request {
 
 message CHardwareUpdate_PrepForUpdate_Response {
     
+}
+
+enum EHardwareUpdateDeviceType {
+    Triton_BL = 0;
+    Proteus_BL = 1;
+    Triton_USB = 2;
+    Triton_BLE = 3;
+    Triton_ESB = 4;
+    Proteus_USB = 5;
+    Nereid_USB = 6;
 }

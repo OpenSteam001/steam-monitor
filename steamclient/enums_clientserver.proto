@@ -1486,7 +1486,7 @@ enum ECodecUsagePlatform {
     k_ECodecUsagePlatformWindows = 1;
     k_ECodecUsagePlatformMacOS = 2;
     k_ECodecUsagePlatformLinux = 3;
-    k_ECodecUsagePlatformSteamDeck = 4;
+    k_ECodecUsagePlatformSteamHardware = 4;
 }
 
 enum ECodecUsageReason {

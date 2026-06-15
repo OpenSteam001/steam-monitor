@@ -32,7 +32,6 @@ service Player {
     rpc GetTopAchievementsForGames(CPlayer_GetTopAchievementsForGames_Request) returns (CPlayer_GetTopAchievementsForGames_Response);
     rpc GetAchievementsProgress(CPlayer_GetAchievementsProgress_Request) returns (CPlayer_GetAchievementsProgress_Response);
     rpc GetGameAchievements(CPlayer_GetGameAchievements_Request) returns (CPlayer_GetGameAchievements_Response);
-    rpc GetUserAchievements(CPlayer_GetUserAchievements_Request) returns (CPlayer_GetUserAchievements_Response);
     rpc GetUserStats(CPlayer_GetUserStats_Request) returns (CPlayer_GetUserStats_Response);
     rpc GetFavoriteBadge(CPlayer_GetFavoriteBadge_Request) returns (CPlayer_GetFavoriteBadge_Response);
     rpc SetFavoriteBadge(CPlayer_SetFavoriteBadge_Request) returns (CPlayer_SetFavoriteBadge_Response);
@@ -483,13 +482,10 @@ message CPlayer_GetGameAchievements_Response {
         optional bool hidden = 6;
         optional string player_percent_unlocked = 7;
         optional uint32 internal_key = 8;
-        optional int32 min_progress_int = 9;
-        optional int32 max_progress_int = 10;
+        optional uint32 min_progress = 9;
+        optional uint32 max_progress = 10;
         optional uint32 groupid = 11;
         optional bool archived = 12;
-        optional EAchievementProgressType progress_type = 13;
-        optional float min_progress_float = 14;
-        optional float max_progress_float = 15;
     }
     
     optional int32 schema_version = 2;
@@ -507,31 +503,11 @@ message CPlayer_GetGameAchievements_Response {
     optional uint32 schema_hash = 4;
 }
 
-message CPlayer_GetUserAchievements_Request {
-    optional uint64 steamid = 1;
-    optional uint32 appid = 2;
-}
-
-message CPlayer_GetUserAchievements_Response {
-    repeated Achievement achievements = 1;
-    message Achievement {
-        optional uint32 internal_key = 1;
-        optional bool unlocked = 2;
-        optional fixed32 unlock_time = 3;
-        optional int32 progress_int = 4;
-        optional float progress_float = 5;
-    }
-    
-    optional int32 schema_version = 2;
-    optional uint32 schema_hash = 3;
-}
-
 message CPlayer_GetUserStats_Request {
     optional uint64 steamid = 1;
     optional uint32 appid = 2;
     optional bytes sha_schema = 3;
     optional uint32 crc_stats = 4;
-    optional uint32 crc_schema = 5;
 }
 
 message CPlayer_GetUserStats_Response {
@@ -545,8 +521,6 @@ message CPlayer_GetUserStats_Response {
         optional uint32 stat_value = 2;
         repeated Unlock_Time unlock_times = 3;
     }
-    
-    optional uint32 crc_schema = 5;
     
     message Unlock_Time {
         optional uint32 achievement_bit = 1;
@@ -977,12 +951,6 @@ message CPlayer_PerFriendPreferencesChanged_Notification {
 
 message CPlayer_PrivacySettingsChanged_Notification {
     optional CPrivacySettings privacy_settings = 1;
-}
-
-enum EAchievementProgressType {
-    k_EAchievementProgressType_Invalid = 0;
-    k_EAchievementProgressType_Int = 1;
-    k_EAchievementProgressType_Float = 2;
 }
 
 enum EProfileCustomizationStyle {

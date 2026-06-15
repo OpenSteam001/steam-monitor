@@ -19,8 +19,6 @@ service SteamOSManager {
     rpc GetUserHasPassword(CSteamOS_GetUserHasPassword_Request) returns (CSteamOS_GetUserHasPassword_Response);
     rpc SwitchToDesktop(CSteamOSManager_SwitchToDesktop_Request) returns (CSteamOSManager_SwitchToDesktop_Response);
     rpc SetDefaultDesktopSession(CSteamOSManager_SetDefaultDesktopSession_Request) returns (CSteamOSManager_SetDefaultDesktopSession_Response);
-    rpc GetSteamVRPaths(CSteamOSManager_GetSteamVRPaths_Request) returns (CSteamOSManager_GetSteamVRPaths_Response);
-    rpc SetSteamVRPath(CSteamOSManager_SetSteamVRPath_Request) returns (CSteamOSManager_SetSteamVRPath_Response);
 }
 
 service SteamOSSLS {
@@ -69,8 +67,6 @@ message CSteamOSManagerState {
     optional bool is_session_management_supported = 31;
     repeated string desktop_sessions_available = 32;
     optional string desktop_session_default = 33;
-    optional bool is_extended_cec_available = 34;
-    optional bool is_extended_cec_wake_device_supported = 35;
 }
 
 message CSteamOSManager_GetState_Request {
@@ -164,31 +160,6 @@ message CSteamOSManager_SetDefaultDesktopSession_Request {
 }
 
 message CSteamOSManager_SetDefaultDesktopSession_Response {
-    
-}
-
-message CSteamOSManager_GetSteamVRPaths_Request {
-    
-}
-
-message CSteamVRPathRecord {
-    optional string path = 1;
-    optional string version = 2;
-}
-
-message CSteamOSManager_GetSteamVRPaths_Response {
-    optional string active_path = 1;
-    optional CSteamVRPathRecord default_path = 2;
-    optional string main_lowerdir_path = 3;
-    optional string rel_lowerdir_path = 4;
-    repeated CSteamVRPathRecord sideloaded_paths = 5;
-}
-
-message CSteamOSManager_SetSteamVRPath_Request {
-    optional string path = 1;
-}
-
-message CSteamOSManager_SetSteamVRPath_Response {
     
 }
 

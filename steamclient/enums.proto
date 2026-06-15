@@ -646,17 +646,6 @@ enum EProtoAppType {
     k_EAppTypeDepotOnly = -2147483648;
 }
 
-enum EAppTestType {
-    k_EAppTestType_BuildReview = 0;
-    k_EAppTestType_StorePageReview = 1;
-    k_EAppTestType_SteamChina_BuildReview = 2;
-    k_EAppTestType_SteamChina_StorePageReview = 3;
-    k_EAppTestType_SteamChinaPlatformOperator_StorePageReview = 4;
-    k_EAppTestType_SteamChinaPlatformOperator_BuildReview = 5;
-    k_EAppTestType_SteamDeckCompatibilityReview = 6;
-    k_EAppTestType_SteamFrameCompatibilityReview = 7;
-}
-
 enum EChildProcessQueryCommand {
     k_EChildProcessQueryCommand_Invalid = 0;
     k_EChildProcessQueryCommand_GpuTopology = 1;
@@ -855,8 +844,7 @@ enum EContentReportReason {
     k_EContentReportReason_NegativeEffectonDiscourseOrElections = 61;
     k_EContentReportReason_QuotesModeratedContent = 62;
     k_EContentReportReason_CredibleThreatOfViolence = 63;
-    k_EContentReportReason_AutoCreatedOnModeration = 64;
-    k_EContentReportReason_MAX = 65;
+    k_EContentReportReason_MAX = 64;
 }
 
 enum EResolutionAutomation {

@@ -10,6 +10,7 @@ option optimize_for = SPEED;
 service HardwareUpdate {
     rpc GetState(CHardwareUpdate_GetState_Request) returns (CHardwareUpdate_GetState_Response);
     rpc NotifyStateChanged(CHardwareUpdate_StateChanged_Notification) returns (WebUINoResponse);
+    rpc EnumerateDevices(CHardwareUpdate_EnumerateDevices_Request) returns (CHardwareUpdate_EnumerateDevices_Response);
     rpc CheckForUpdates(CHardwareUpdate_CheckForUpdates_Request) returns (CHardwareUpdate_CheckForUpdates_Response);
     rpc PrepForUpdate(CHardwareUpdate_PrepForUpdate_Request) returns (CHardwareUpdate_PrepForUpdate_Response);
     rpc Update(CHardwareUpdate_Update_Request) returns (CHardwareUpdate_Update_Response);
@@ -35,12 +36,12 @@ message CHardwareUpdate_CheckForUpdates_Request {
 }
 
 message CMsgAvailableHardwareUpdate {
-    optional uint32 etype = 1;
-    optional uint32 hardware_id = 2;
+    optional EHardwareUpdateDeviceType etype = 1;
     optional string serial_number = 3;
-    optional string current_ts = 4;
-    optional string update_ts = 5;
-    optional bool mandatory_update = 6;
+    optional uint64 current_ts = 4;
+    optional uint64 update_ts = 5;
+    optional EHardwareUpdatePriority priority = 6;
+    optional bool is_downgrade = 7;
 }
 
 message CHardwareUpdate_CheckForUpdates_Response {
@@ -70,4 +71,34 @@ message CHardwareUpdate_PrepForUpdate_Request {
 
 message CHardwareUpdate_PrepForUpdate_Response {
     
+}
+
+message CHardwareUpdate_EnumerateDevices_Request {
+    
+}
+
+message CHardwareUpdate_EnumerateDevices_Response {
+    repeated Device devices = 1;
+    message Device {
+        optional EHardwareUpdateDeviceType etype = 1;
+        optional string serial_number = 2;
+        optional uint64 current_ts = 3;
+    }
+}
+
+enum EHardwareUpdateDeviceType {
+    Triton_BL = 0;
+    Proteus_BL = 1;
+    Triton_USB = 2;
+    Triton_BLE = 3;
+    Triton_ESB = 4;
+    Proteus_USB = 5;
+    Nereid_USB = 6;
+}
+
+enum EHardwareUpdatePriority {
+    Low = 0;
+    Normal = 1;
+    Suggested = 2;
+    Required = 3;
 }

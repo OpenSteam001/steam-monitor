@@ -408,11 +408,6 @@ message CMsgPopupHTMLWindow {
     optional uint32 creation_flags = 12;
 }
 
-message CMsgPopupHTMLWindowResponse {
-    optional uint32 browser_handle = 1;
-    optional bool bAllow = 2;
-}
-
 message CMsgSetHTMLTitle {
     optional uint32 browser_handle = 1;
     optional string title = 2;
@@ -579,28 +574,11 @@ message CMsgLinkAtPositionResponse {
     optional bool binput = 6;
 }
 
-message CMsgZoomToElementAtPosition {
-    optional uint32 browser_handle = 1;
-    optional uint32 x = 2;
-    optional uint32 y = 3;
-}
-
-message CMsgZoomToElementAtPositionResponse {
-    optional uint32 browser_handle = 1;
-    optional float scale = 2;
-    optional float duration = 3;
-}
-
 message CMsgScalePageToValue {
     optional uint32 browser_handle = 1;
     optional float scale = 2;
     optional float x = 3;
     optional float y = 4;
-}
-
-message CMsgForcePopupsToDirectHWND {
-    optional uint32 browser_handle = 1;
-    optional bool force_direct_hwnd_popups = 2;
 }
 
 message CMsgScalePageToValueResponse {
@@ -726,10 +704,6 @@ message CMsgNodeHasFocus {
     optional bool bIsMainFrame = 8;
 }
 
-message CMsgZoomToFocusedElement {
-    optional uint32 browser_handle = 1;
-}
-
 message CMsgFocusedNodeText {
     optional uint32 browser_handle = 1;
 }
@@ -844,12 +818,6 @@ message CMsgJSRaiseException {
     optional uint32 browser_handle = 1;
     optional uint32 owning_browser_handle = 2;
     optional string exception = 3;
-}
-
-message CMsgLoadLocalization {
-    optional uint32 browser_handle = 1;
-    optional string localization_path = 2;
-    optional string language = 3;
 }
 
 message CMsgNotifyUserActivation {

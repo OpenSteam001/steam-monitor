@@ -239,6 +239,11 @@ message CMsgClientSettings {
     optional bool steamos_separate_led_colors = 22016;
     optional bool steamos_wifi_reload_wifi_driver_on_sleep = 22017;
     optional bool steamos_wifi_power_management_enabled = 220018;
+    optional bool steamos_cec_control = 22019;
+    optional bool steamos_cec_suspend_tv = 22020;
+    optional bool steamos_cec_suspend_device = 22021;
+    optional bool steamos_cec_wake_tv = 22022;
+    optional bool steamos_cec_wake_device = 22023;
     optional bool setting_validation_bool = 23001;
     optional EHDRVisualization setting_validation_enum = 23002;
     optional int32 setting_validation_int32 = 23003;

@@ -227,11 +227,8 @@ message CMsgSystemPerfLimits {
     optional int32 cpu_governor_manual_max_mhz = 2;
     optional int32 fsr_sharpness_min = 3;
     optional int32 fsr_sharpness_max = 4;
-    optional int32 gpu_performance_manual_min_mhz = 5;
-    optional int32 gpu_performance_manual_max_mhz = 6;
     optional bool perf_overlay_is_standalone = 7;
     optional bool is_manual_display_refresh_rate_available = 9;
-    repeated EGPUPerformanceLevel gpu_performance_levels_available = 10;
     optional int32 display_refresh_manual_hz_min = 11;
     optional int32 display_refresh_manual_hz_max = 12;
     repeated int32 fps_limit_options = 13;
@@ -263,7 +260,6 @@ message CMsgSystemPerfSettingsGlobal {
 }
 
 message CMsgSystemPerfSettingsPerApp {
-    optional int32 gpu_performance_manual_mhz = 1;
     optional int32 fps_limit = 2;
     optional bool is_variable_resolution_enabled = 3;
     optional bool is_dynamic_refresh_rate_enabled = 4;
@@ -277,7 +273,6 @@ message CMsgSystemPerfSettingsPerApp {
     optional bool is_low_latency_mode_enabled = 12;
     optional int32 display_refresh_manual_hz = 13;
     optional bool is_game_perf_profile_enabled = 14;
-    optional EGPUPerformanceLevel gpu_performance_level = 15;
     optional int32 display_external_refresh_manual_hz = 17;
     optional int32 fps_limit_external = 18;
     optional bool is_tearing_enabled = 19;

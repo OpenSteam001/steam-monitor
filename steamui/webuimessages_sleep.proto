@@ -36,6 +36,7 @@ message CSleepManager_StateChanged_Notification {
 
 message CSleepManager_RequestSuspend_Notification {
     optional bool optionally_transition_to_low_power_downloads = 1;
+    optional bool suppress_actual_suspend = 2;
 }
 
 message CSleepManager_ResumeFromSuspend_Notification {

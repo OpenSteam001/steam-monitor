@@ -9,6 +9,7 @@ service GameServers {
     rpc GetServerSteamIDsByIP(CGameServers_GetServerSteamIDsByIP_Request) returns (CGameServers_IPsWithSteamIDs_Response);
     rpc GetServerIPsBySteamID(CGameServers_GetServerIPsBySteamID_Request) returns (CGameServers_IPsWithSteamIDs_Response);
     rpc QueryByFakeIP(CGameServers_QueryByFakeIP_Request) returns (CGameServers_GameServerQuery_Response);
+    rpc FriendsQuery(CGameServers_FriendsQuery_Request) returns (CGameServers_FriendsQuery_Response);
     rpc ReportServerPingReply(CGameServers_ReportServerPingReply_Notification) returns (NoResponse);
 }
 
@@ -91,6 +92,23 @@ message CGameServers_GameServerQuery_Response {
     optional CMsgGameServerPingQueryData ping_data = 1;
     optional CMsgGameServerPlayersQueryData players_data = 2;
     optional CMsgGameServerRulesQueryData rules_data = 3;
+}
+
+message CGameServers_FriendsQuery_Request {
+    optional uint32 server_ip = 1;
+    optional uint32 server_port = 2;
+    optional uint32 app_id = 3;
+}
+
+message CGameServers_FriendsQuery_Response {
+    repeated Player players = 1;
+    message Player {
+        optional fixed64 steamid = 1;
+        optional uint32 time_played = 2;
+    }
+    
+    optional fixed64 steamid = 2;
+    optional uint32 app_id = 3;
 }
 
 message CGameServers_ReportServerPingReply_Notification {

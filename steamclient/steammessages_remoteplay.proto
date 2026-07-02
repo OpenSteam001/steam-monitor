@@ -125,6 +125,7 @@ message CStreamingClientConfig {
     optional int32 window_position_y = 32;
     optional int32 window_frame_offset_x = 33;
     optional int32 window_frame_offset_y = 34;
+    optional bool enable_video_pyrowave = 35 [default = false];
 }
 
 message CStreamingServerConfig {
@@ -836,9 +837,8 @@ enum EStreamVideoCodec {
     k_EStreamVideoCodecVP9 = 3;
     k_EStreamVideoCodecH264 = 4;
     k_EStreamVideoCodecHEVC = 5;
-    k_EStreamVideoCodecORBX1 = 6;
-    k_EStreamVideoCodecORBX2 = 7;
     k_EStreamVideoCodecAV1 = 8;
+    k_EStreamVideoCodecPyrowave = 9;
 }
 
 enum EStreamQualityPreference {

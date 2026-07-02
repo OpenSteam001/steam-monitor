@@ -8,10 +8,9 @@ option cc_generic_services = true;
 option optimize_for = SPEED;
 
 service Audio {
-    rpc SupportsMonoDownmix(CAudio_SupportsMonoDownmix_Request) returns (CAudio_SupportsMonoDownmix_Response);
+    rpc GetSupportedFeatures(CAudio_GetSupportedFeatures_Request) returns (CAudio_GetSupportedFeatures_Response);
     rpc GetMonoDownmixEnabled(CAudio_GetMonoDownmixEnabled_Request) returns (CAudio_GetMonoDownmixEnabled_Response);
     rpc SetMonoDownmixEnabled(CAudio_SetMonoDownmixEnabled_Request) returns (CAudio_SetMonoDownmixEnabled_Response);
-    rpc SupportsUseBluetoothForMic(CAudio_SupportsUseBluetoothForMic_Request) returns (CAudio_SupportsUseBluetoothForMic_Response);
     rpc GetUseBluetoothForMic(CAudio_GetUseBluetoothForMic_Request) returns (CAudio_GetUseBluetoothForMic_Response);
     rpc SetUseBluetoothForMic(CAudio_SetUseBluetoothForMic_Request) returns (CAudio_SetUseBluetoothForMic_Response);
     rpc SupportsHdmiCec(CAudio_SupportsHdmiCec_Request) returns (CAudio_SupportsHdmiCec_Response);
@@ -20,16 +19,19 @@ service Audio {
     rpc SetHdmiCecEnabled(CAudio_SetHdmiCecEnabled_Request) returns (CAudio_SetHdmiCecEnabled_Response);
     rpc SendHdmiCecVolume(CAudio_SendHdmiCecVolume_Request) returns (CAudio_SendHdmiCecVolume_Response);
     rpc ToggleHdmiCecMute(CAudio_ToggleHdmiCecMute_Request) returns (CAudio_ToggleHdmiCecMute_Response);
+    rpc ResetConfig(CAudio_ResetConfig_Request) returns (CAudio_ResetConfig_Response);
     rpc PlaySpeakerTestOnChannel(CAudio_PlaySpeakerTestOnChannel_Request) returns (CAudio_PlaySpeakerTestOnChannel_Response);
     rpc SetSpeakerConfiguration(CAudio_SetSpeakerConfiguration_Request) returns (CAudio_SetSpeakerConfiguration_Response);
 }
 
-message CAudio_SupportsMonoDownmix_Request {
+message CAudio_GetSupportedFeatures_Request {
     
 }
 
-message CAudio_SupportsMonoDownmix_Response {
-    optional bool enabled = 1;
+message CAudio_GetSupportedFeatures_Response {
+    optional bool mono_downmix = 1;
+    optional bool use_bluetooth_for_mic = 2;
+    optional bool reset_config = 3;
 }
 
 message CAudio_GetMonoDownmixEnabled_Request {
@@ -46,14 +48,6 @@ message CAudio_SetMonoDownmixEnabled_Request {
 
 message CAudio_SetMonoDownmixEnabled_Response {
     
-}
-
-message CAudio_SupportsUseBluetoothForMic_Request {
-    
-}
-
-message CAudio_SupportsUseBluetoothForMic_Response {
-    optional bool enabled = 1;
 }
 
 message CAudio_GetUseBluetoothForMic_Request {
@@ -119,6 +113,14 @@ message CAudio_ToggleHdmiCecMute_Request {
 }
 
 message CAudio_ToggleHdmiCecMute_Response {
+    
+}
+
+message CAudio_ResetConfig_Request {
+    
+}
+
+message CAudio_ResetConfig_Response {
     
 }
 

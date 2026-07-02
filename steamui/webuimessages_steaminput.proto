@@ -363,6 +363,8 @@ message CSteamInputService_RawControllerDetailItem {
     optional int32 aux_capsense_threshold = 45;
     optional int32 aux_capsense_hysterisis = 46;
     optional int32 rumble_setting = 47;
+    optional int32 triton_gyro_hw_cal = 48;
+    optional bool use_gyro_sw_biases = 49;
 }
 
 message CSteamInputService_ControllerListChanged_Notification {

@@ -122,6 +122,8 @@ message CMsgGMSClientServerQueryResponse {
         optional uint32 gametype_strindex = 27;
         optional string spectator_name_str = 30;
         optional uint32 spectator_name_strindex = 31;
+        repeated fixed64 friends = 33;
+        optional uint32 friends_count = 34;
     }
     
     optional string error = 2;

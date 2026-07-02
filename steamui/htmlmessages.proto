@@ -581,11 +581,6 @@ message CMsgScalePageToValue {
     optional float y = 4;
 }
 
-message CMsgScalePageToValueResponse {
-    optional uint32 browser_handle = 1;
-    optional float zoom = 2;
-}
-
 message CMsgSavePageToJPEG {
     optional uint32 browser_handle = 1;
     optional string url = 2;
@@ -702,15 +697,6 @@ message CMsgNodeHasFocus {
     optional bool bHasMultipleInputs = 6;
     optional string input_type = 7;
     optional bool bIsMainFrame = 8;
-}
-
-message CMsgFocusedNodeText {
-    optional uint32 browser_handle = 1;
-}
-
-message CMsgFocusedNodeTextResponse {
-    optional uint32 browser_handle = 1;
-    optional string value = 2;
 }
 
 message CMsgBuildID {

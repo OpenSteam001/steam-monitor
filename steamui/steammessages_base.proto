@@ -144,7 +144,6 @@ message CMsgAppRights {
 }
 
 message CCuratorPreferences {
-    optional uint32 supported_languages = 1;
     optional bool platform_windows = 2;
     optional bool platform_mac = 3;
     optional bool platform_linux = 4;
@@ -270,7 +269,7 @@ message CPackageReservationStatus {
     optional string user_waitlist_token = 14;
     optional bool queue_in_waitlist = 15;
     optional string queue_waitlist_token = 16;
-    optional bool reservation_type = 17;
+    optional uint32 collection_time_active = 17;
 }
 
 message CMsgKeyValuePair {

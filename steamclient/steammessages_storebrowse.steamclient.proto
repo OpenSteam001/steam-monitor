@@ -82,6 +82,7 @@ message StoreItem {
         repeated Demo demos = 4;
         repeated Demo standalone_demos = 5;
         repeated Playtest playtests = 6;
+        optional RelatedF2P related_f2p = 7;
     }
     
     optional IncludedItems included_items = 16;
@@ -176,6 +177,7 @@ message StoreItem {
         optional uint32 mac_release_date = 20;
         optional uint32 linux_release_date = 21;
         optional bool limited_launch_active = 22;
+        optional uint32 advance_access_date = 23;
     }
     
     optional Platforms platforms = 32;
@@ -196,6 +198,7 @@ message StoreItem {
         
         optional ESteamDeckCompatibilityCategory steam_deck_compat_category = 11;
         optional ESteamOSCompatibilityCategory steam_os_compat_category = 12;
+        optional ESteamDeckCompatibilityCategory steam_frame_compat_category = 13;
     }
     
     optional StoreGameRating game_rating = 33;
@@ -221,6 +224,7 @@ message StoreItem {
             optional int64 discount_amount = 1;
             optional string discount_description = 2;
             optional uint32 discount_end_date = 3;
+            optional uint32 master_sub_appid = 4;
         }
         
         optional bool user_can_purchase_as_gift = 31;
@@ -249,6 +253,7 @@ message StoreItem {
         optional bool price_cannot_be_displayed_as_discount = 52 [default = false];
         optional int64 price_to_base_discount_on = 53;
         optional uint32 free_with_master_sub_appid = 54;
+        optional string formatted_lowest_recent_price = 55;
     }
     
     repeated PurchaseOption purchase_options = 41;
@@ -354,6 +359,12 @@ message StoreItem {
         optional uint32 appid = 1;
         optional bool is_open = 2;
     }
+    
+    message RelatedF2P {
+        optional uint32 appid = 1;
+        optional string header_text = 2;
+        optional string description_text = 3;
+    }
 }
 
 message StoreGameRating {
@@ -376,7 +387,10 @@ message StoreBrowseFilterFailure {
     optional bool not_on_users_platform = 11;
     optional bool demo_for_owned_game = 12;
     optional bool dlc_for_unowned_game = 13;
-    optional bool nonpreferred_product_type = 20;
+    optional bool nonpreferred_product_early_access = 22;
+    optional bool nonpreferred_product_prepurchase = 23;
+    optional bool nonpreferred_product_software = 24;
+    optional bool nonpreferred_product_vr = 25;
     repeated uint32 excluded_tagids = 21;
     repeated EContentDescriptorID excluded_content_descriptorids = 30;
 }
@@ -509,6 +523,12 @@ message CHardwarePackageDetails {
     optional bool not_allowed_to_reserved_because_already_owned = 19;
     optional uint32 appid_ownership_not_allowed_to_reserve = 20;
     optional uint32 account_first_date_purchase_requirement = 21;
+    optional bool position_is_waitlist = 22;
+    optional string user_waitlist_token = 23;
+    optional bool queue_in_waitlist = 24;
+    optional string queue_waitlist_token = 25;
+    optional uint32 collection_time_active = 26;
+    optional bool reservation_not_allowed = 27;
 }
 
 message CStoreBrowse_GetHardwareItems_Response {

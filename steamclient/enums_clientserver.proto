@@ -548,7 +548,6 @@ enum EMsg {
     k_EMsgSMExpensiveReport = 2902;
     k_EMsgSMHourlyReport = 2903;
     k_EMsgSMPartitionRenames = 2905;
-    k_EMsgSMMonitorSpace = 2906;
     k_EMsgSMTestNextBuildSchemaConversion = 2907;
     k_EMsgSMTestNextBuildSchemaConversionResponse = 2908;
     k_EMsgBaseTest = 3000;

@@ -183,6 +183,7 @@ message CMarketingMessages_FindMarketingMessages_Request {
     optional EMarketingMessageType message_type = 3;
     repeated fixed64 gidlist = 4;
     optional string title = 5;
+    optional uint32 associated_id = 6;
 }
 
 message CMarketingMessages_FindMarketingMessages_Response {
@@ -335,4 +336,5 @@ enum EMarketingMessageLookupType {
     k_EMarketingMessageLookupActive = 2;
     k_EMarketingMessageLookupByTitleWithType = 3;
     k_EMarketingMessageLookupByGIDList = 4;
+    k_EMarketingMessageLookupByAssociatedID = 5;
 }

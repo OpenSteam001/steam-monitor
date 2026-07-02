@@ -502,6 +502,9 @@ message CPlayer_GetGameAchievements_Response {
         optional bool archived = 4;
         optional bool developeronly = 5;
         optional uint32 order = 6;
+        optional bool ispublic = 7;
+        optional uint32 total_achievements = 8;
+        optional uint32 completion_achievements = 9;
     }
     
     optional uint32 schema_hash = 4;
@@ -524,6 +527,12 @@ message CPlayer_GetUserAchievements_Response {
     
     optional int32 schema_version = 2;
     optional uint32 schema_hash = 3;
+    
+    repeated Group groups = 4;
+    message Group {
+        optional uint32 groupid = 1;
+        optional uint32 completion_achievements = 3;
+    }
 }
 
 message CPlayer_GetUserStats_Request {

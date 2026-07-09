@@ -573,6 +573,11 @@ message CCaptureFailedMsg {
     optional ECaptureFailedReason reason = 1;
 }
 
+message CStreamVideoOverflowMsg {
+    optional uint32 first_frame_id = 1;
+    optional uint32 last_frame_id = 2;
+}
+
 message CStreamDataLostMsg {
     repeated uint32 packets = 1;
 }
@@ -814,6 +819,7 @@ enum EStreamControlMessage {
     k_EStreamControlVRConnectionReady = 145;
     k_EStreamControlSetCursorScale = 146;
     k_EStreamControlCaptureFailed = 147;
+    k_EStreamControlVideoOverflow = 148;
 }
 
 enum EStreamVersion {

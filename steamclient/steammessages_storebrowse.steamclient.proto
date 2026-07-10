@@ -199,6 +199,7 @@ message StoreItem {
         optional ESteamDeckCompatibilityCategory steam_deck_compat_category = 11;
         optional ESteamOSCompatibilityCategory steam_os_compat_category = 12;
         optional ESteamDeckCompatibilityCategory steam_frame_compat_category = 13;
+        optional ESteamDeckCompatibilityCategory steam_machine_compat_category = 14;
     }
     
     optional StoreGameRating game_rating = 33;

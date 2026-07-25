@@ -83,6 +83,7 @@ message StoreItem {
         repeated Demo standalone_demos = 5;
         repeated Playtest playtests = 6;
         optional RelatedF2P related_f2p = 7;
+        repeated uint32 dlc_parent_appids = 9;
     }
     
     optional IncludedItems included_items = 16;
@@ -530,6 +531,7 @@ message CHardwarePackageDetails {
     optional string queue_waitlist_token = 25;
     optional uint32 collection_time_active = 26;
     optional bool reservation_not_allowed = 27;
+    optional bool requires_signature = 28;
 }
 
 message CStoreBrowse_GetHardwareItems_Response {

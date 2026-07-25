@@ -10,6 +10,8 @@ service Community {
     rpc GetApps(CCommunity_GetApps_Request) returns (CCommunity_GetApps_Response);
     rpc GetAppRichPresenceLocalization(CCommunity_GetAppRichPresenceLocalization_Request) returns (CCommunity_GetAppRichPresenceLocalization_Response);
     rpc GetCommentThread(CCommunity_GetCommentThread_Request) returns (CCommunity_GetCommentThread_Response);
+    rpc GetComment(CCommunity_GetComment_Request) returns (CCommunity_GetComment_Response);
+    rpc SanctionComment(CCommunity_SanctionComment_Request) returns (CCommunity_SanctionComment_Response);
     rpc PostCommentToThread(CCommunity_PostCommentToThread_Request) returns (CCommunity_PostCommentToThread_Response);
     rpc DeleteCommentFromThread(CCommunity_DeleteCommentFromThread_Request) returns (CCommunity_DeleteCommentFromThread_Response);
     rpc RateCommentThread(CCommunity_RateCommentThread_Request) returns (CCommunity_RateCommentThread_Response);
@@ -34,6 +36,10 @@ service Community {
     rpc GetUserPartnerEventsAppPriorities(CCommunity_GetUserPartnerEventsAppPriorities_Request) returns (CCommunity_GetUserPartnerEventsAppPriorities_Response);
     rpc ClearSinglePartnerEventsAppPriority(CCommunity_ClearSinglePartnerEventsAppPriority_Request) returns (CCommunity_ClearSinglePartnerEventsAppPriority_Response);
     rpc SetRecommendationBotReviewStatus(CCommunity_SetRecommendationBotReviewStatus_Request) returns (CCommunity_SetRecommendationBotReviewStatus_Response);
+}
+
+service CommentModeration {
+    rpc UpdateCommentReportState(CCommentModeration_UpdateCommentReportState_Request) returns (CCommentModeration_UpdateCommentReportState_Response);
 }
 
 message CCommunity_GetApps_Request {
@@ -122,6 +128,41 @@ message CCommunity_GetCommentThread_Response {
     optional uint32 comment_thread_type = 16;
     optional fixed64 gidfeature = 17;
     optional fixed64 gidfeature2 = 18;
+}
+
+message CCommunity_GetComment_Request {
+    optional fixed64 steamid = 1;
+    optional ECommentThreadType comment_thread_type = 2;
+    optional fixed64 gidfeature = 3;
+    optional fixed64 gidfeature2 = 4;
+    optional fixed64 gidcomment = 5;
+    optional fixed64 comment_thread_id = 6;
+}
+
+message CCommunity_GetComment_Response {
+    optional CCommunity_Comment comment = 1;
+    optional ECommentThreadType comment_thread_type = 2;
+    optional fixed64 gidfeature = 3;
+    optional fixed64 gidfeature2 = 4;
+}
+
+message CCommunity_SanctionComment_Request {
+    optional fixed64 steamid = 1;
+    optional fixed64 comment_thread_id = 2;
+    optional fixed64 gidcomment = 3;
+    optional EContentReportReason reason = 4;
+    optional string note = 5;
+    
+    repeated Sanction sanctions = 6;
+    message Sanction {
+        optional EContentModerationSanction sanction = 1;
+        optional int32 days = 2;
+        optional EContentModeratorLevel escalate_to = 3;
+    }
+}
+
+message CCommunity_SanctionComment_Response {
+    
 }
 
 message CCommunity_PostCommentToThread_Request {
@@ -441,6 +482,42 @@ message CCommunity_SetRecommendationBotReviewStatus_Response {
     
 }
 
+message CommentClassification {
+    optional bool explicit = 1;
+    optional bool adult = 2;
+    optional bool toxic = 3;
+    optional bool spam = 4;
+    optional bool malicious = 5;
+    optional bool commercial = 6;
+}
+
+message CCommentModeration_UpdateCommentReportState_Request {
+    optional bool resolve = 1;
+    optional uint64 reportid = 2;
+    optional ECommentReportAction report_action = 3;
+    optional fixed64 gidcomment = 4;
+    optional string commentthreadtype = 5;
+    optional fixed64 steamid = 6;
+    optional uint64 gidfeature = 7;
+    optional uint64 gidfeature2 = 8;
+    optional CommentClassification classification = 9;
+    optional uint32 reason = 10;
+    optional uint64 comment_thread_id = 11;
+    
+    repeated Sanction sanctions = 12;
+    message Sanction {
+        optional EContentModerationSanction sanction = 1;
+        optional int32 days = 2;
+        optional EContentModeratorLevel escalate_to = 3;
+    }
+    
+    optional string note = 13;
+}
+
+message CCommentModeration_UpdateCommentReportState_Response {
+    
+}
+
 enum EClanImageGroup {
     k_EClanImageGroup_None = 0;
     k_EClanImageGroup_Announcement = 1;
@@ -473,4 +550,13 @@ enum EPartnerEventDisplayLocation {
     k_EPartnerEventDisplayLocation_NewsHub = 8;
     k_EPartnerEventDisplayLocation_GamepadHome = 9;
     k_EPartnerEventDisplayLocation_StoreHub = 10;
+}
+
+enum ECommentReportAction {
+    k_ECommentReportAction_Invalid = 0;
+    k_ECommentReportAction_NoAction = 1;
+    k_ECommentReportAction_Deleted = 2;
+    k_ECommentReportAction_Hidden = 3;
+    k_ECommentReportAction_ExternalDelete = 4;
+    k_ECommentReportAction_ThreadDeleted = 5;
 }

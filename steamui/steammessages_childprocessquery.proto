@@ -26,3 +26,9 @@ message CMsgChildProcessQueryGpuTopology {
     
     optional uint32 default_gpu_id = 2;
 }
+
+enum EChildProcessQueryCommand {
+    k_EChildProcessQueryCommand_Invalid = 0;
+    k_EChildProcessQueryCommand_GpuTopology = 1;
+    k_EChildProcessQueryCommand_Max = 2;
+}

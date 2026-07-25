@@ -71,6 +71,7 @@ message CSteamOSManagerState {
     optional string desktop_session_default = 33;
     optional bool is_extended_cec_available = 34;
     optional bool is_extended_cec_wake_device_supported = 35;
+    optional bool is_ec_logging_available = 36;
 }
 
 message CSteamOSManager_GetState_Request {
@@ -179,8 +180,8 @@ message CSteamVRPathRecord {
 message CSteamOSManager_GetSteamVRPaths_Response {
     optional string active_path = 1;
     optional CSteamVRPathRecord default_path = 2;
-    optional string main_lowerdir_path = 3;
-    optional string rel_lowerdir_path = 4;
+    optional CSteamVRPathRecord steam_steamvr_main_path = 3;
+    optional CSteamVRPathRecord steam_steamvr_rel_path = 4;
     repeated CSteamVRPathRecord sideloaded_paths = 5;
 }
 

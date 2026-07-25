@@ -207,6 +207,11 @@ enum ESystemServiceState {
     k_ESystemServiceState_Enabled = 2;
 }
 
+enum EBluetoothAudioPreference {
+    k_EBluetoothAudioPreference_Quality = 0;
+    k_EBluetoothAudioPreference_Latency = 1;
+}
+
 enum EGraphicsPerfOverlayLevel {
     k_EGraphicsPerfOverlayLevel_Hidden = 0;
     k_EGraphicsPerfOverlayLevel_Basic = 1;
@@ -658,12 +663,6 @@ enum EAppTestType {
     k_EAppTestType_SteamFrameCompatibilityReview = 7;
 }
 
-enum EChildProcessQueryCommand {
-    k_EChildProcessQueryCommand_Invalid = 0;
-    k_EChildProcessQueryCommand_GpuTopology = 1;
-    k_EChildProcessQueryCommand_Max = 2;
-}
-
 enum EChildProcessQueryExitCode {
     k_EChildProcessQueryExitCode_Success = 0;
     k_EChildProcessQueryExitCode_ErrorCommandline = -1;
@@ -761,7 +760,9 @@ enum EContentModerationSanction {
     k_EContentModerationSanction_Warned = 8;
     k_EContentModerationSanction_KickedFromGroup = 9;
     k_EContentModerationSanction_HarassmentBanned = 10;
-    k_EContentModerationSanction_MAX = 11;
+    k_EContentModerationSanction_HarassmentStrike = 11;
+    k_EContentModerationSanction_Escalate = 12;
+    k_EContentModerationSanction_MAX = 13;
 }
 
 enum EContentReportSubjectAction {
@@ -857,7 +858,11 @@ enum EContentReportReason {
     k_EContentReportReason_QuotesModeratedContent = 62;
     k_EContentReportReason_CredibleThreatOfViolence = 63;
     k_EContentReportReason_AutoCreatedOnModeration = 64;
-    k_EContentReportReason_MAX = 65;
+    k_EContentReportReason_Piracy = 65;
+    k_EContentReportReason_ToSViolation = 66;
+    k_EContentReportReason_Miscategorized = 67;
+    k_EContentReportReason_BypassingProfanityFilter = 68;
+    k_EContentReportReason_MAX = 69;
 }
 
 enum EResolutionAutomation {

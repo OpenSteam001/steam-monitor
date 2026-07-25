@@ -295,7 +295,7 @@ message CGameRecording_ExportClip_Request {
 }
 
 message CGameRecording_ExportClip_Response {
-    
+    optional int32 result = 1;
 }
 
 message CGameRecording_ExportClipPreview_Request {
@@ -307,6 +307,7 @@ message CGameRecording_ExportClipPreview_Request {
 message CGameRecording_ExportClipPreview_Response {
     optional uint64 estimated_size = 1;
     optional CGameRecording_ExportClip_Settings settings = 2;
+    optional int32 result = 3;
 }
 
 message CGameRecording_TakeScreenshot_Request {
@@ -477,7 +478,6 @@ message CGameRecording_ClipDeleted_Notification {
 message CGameRecording_ExportProgress_Notification {
     optional float progress = 1;
     optional string clip_id = 2;
-    optional int32 eresult = 3;
 }
 
 message CGameRecording_PerGameSettings {

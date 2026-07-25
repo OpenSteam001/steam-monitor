@@ -29,8 +29,6 @@ message CMsgSettingVariant {
 
 message CMsgClientSettings {
     optional bool no_save_personal_info = 1;
-    optional bool in_client_beta = 3;
-    optional bool is_steam_sideloaded = 4;
     optional string preferred_monitor = 5;
     optional bool steam_cef_gpu_blocklist_disabled = 6;
     optional bool bigpicture_windowed = 7;
@@ -244,6 +242,7 @@ message CMsgClientSettings {
     optional bool steamos_cec_suspend_device = 22021;
     optional bool steamos_cec_wake_tv = 22022;
     optional bool steamos_cec_wake_device = 22023;
+    optional bool steamos_ec_logging_enabled = 22024;
     optional bool setting_validation_bool = 23001;
     optional EHDRVisualization setting_validation_enum = 23002;
     optional int32 setting_validation_int32 = 23003;

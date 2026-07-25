@@ -124,6 +124,8 @@ message CMsgGMSClientServerQueryResponse {
         optional uint32 spectator_name_strindex = 31;
         repeated fixed64 friends = 33;
         optional uint32 friends_count = 34;
+        optional uint32 friends_count_connected = 35;
+        optional uint32 ping_estimate = 36;
     }
     
     optional string error = 2;

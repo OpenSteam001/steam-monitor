@@ -13,6 +13,8 @@ service Audio {
     rpc SetMonoDownmixEnabled(CAudio_SetMonoDownmixEnabled_Request) returns (CAudio_SetMonoDownmixEnabled_Response);
     rpc GetUseBluetoothForMic(CAudio_GetUseBluetoothForMic_Request) returns (CAudio_GetUseBluetoothForMic_Response);
     rpc SetUseBluetoothForMic(CAudio_SetUseBluetoothForMic_Request) returns (CAudio_SetUseBluetoothForMic_Response);
+    rpc GetBluetoothAudioPreference(CAudio_GetBluetoothAudioPreference_Request) returns (CAudio_GetBluetoothAudioPreference_Response);
+    rpc SetBluetoothAudioPreference(CAudio_SetBluetoothAudioPreference_Request) returns (CAudio_SetBluetoothAudioPreference_Response);
     rpc SupportsHdmiCec(CAudio_SupportsHdmiCec_Request) returns (CAudio_SupportsHdmiCec_Response);
     rpc GetHdmiCecEnabled(CAudio_GetHdmiCecEnabled_Request) returns (CAudio_GetHdmiCecEnabled_Response);
     rpc GetHdmiCecActive(CAudio_GetHdmiCecActive_Request) returns (CAudio_GetHdmiCecActive_Response);
@@ -32,6 +34,7 @@ message CAudio_GetSupportedFeatures_Response {
     optional bool mono_downmix = 1;
     optional bool use_bluetooth_for_mic = 2;
     optional bool reset_config = 3;
+    optional bool bluetooth_audio_preference = 4;
 }
 
 message CAudio_GetMonoDownmixEnabled_Request {
@@ -63,6 +66,22 @@ message CAudio_SetUseBluetoothForMic_Request {
 }
 
 message CAudio_SetUseBluetoothForMic_Response {
+    
+}
+
+message CAudio_GetBluetoothAudioPreference_Request {
+    
+}
+
+message CAudio_GetBluetoothAudioPreference_Response {
+    optional EBluetoothAudioPreference preference = 1;
+}
+
+message CAudio_SetBluetoothAudioPreference_Request {
+    optional EBluetoothAudioPreference preference = 1;
+}
+
+message CAudio_SetBluetoothAudioPreference_Response {
     
 }
 

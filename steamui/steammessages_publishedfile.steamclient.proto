@@ -307,6 +307,7 @@ message CPublishedFile_GetItemInfo_Request {
     }
     
     optional EPublishedFileRevision desired_revision = 4 [default = k_EPublishedFileRevision_Default];
+    optional bool full_reconcile = 5;
 }
 
 message CPublishedFile_GetItemInfo_Response {

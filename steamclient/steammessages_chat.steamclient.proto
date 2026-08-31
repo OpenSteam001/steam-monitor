@@ -60,6 +60,7 @@ service ChatRoom {
     rpc SetSessionActiveChatRoomGroups(CChatRoom_SetSessionActiveChatRoomGroups_Request) returns (CChatRoom_SetSessionActiveChatRoomGroups_Response);
     rpc SetUserChatGroupPreferences(CChatRoom_SetUserChatGroupPreferences_Request) returns (CChatRoom_SetUserChatGroupPreferences_Response);
     rpc DeleteChatMessages(CChatRoom_DeleteChatMessages_Request) returns (CChatRoom_DeleteChatMessages_Response);
+    rpc DismissChatRoomNotice(CChatRoom_DismissChatRoomNotice_Notification) returns (NoResponse);
     rpc UpdateMemberListView(CChatRoom_UpdateMemberListView_Notification) returns (NoResponse);
     rpc SearchMembers(CChatRoom_SearchMembers_Request) returns (CChatRoom_SearchMembers_Response);
     rpc UpdateMessageReaction(CChatRoom_UpdateMessageReaction_Request) returns (CChatRoom_UpdateMessageReaction_Response);
@@ -85,6 +86,7 @@ service ChatRoomClient {
     rpc NotifyChatRoomDisconnect(ChatRoomClient_NotifyChatRoomDisconnect_Notification) returns (NoResponse);
     rpc NotifyMemberListViewUpdated(CChatRoomClient_MemberListViewUpdated_Notification) returns (NoResponse);
     rpc NotifyMessageReaction(CChatRoom_MessageReaction_Notification) returns (NoResponse);
+    rpc NotifyChatRoomNotice(CChatRoom_ChatRoomNotice_Notification) returns (NoResponse);
 }
 
 service ChatUsability {
@@ -715,9 +717,20 @@ message CChatRoom_SetSessionActiveChatRoomGroups_Request {
     optional int32 virtualize_members_threshold = 3;
 }
 
+message CChatRoomMemberNotice {
+    optional uint32 accountid = 1;
+    optional EChatRoomNotice notice_type = 2;
+}
+
+message CChatRoomGroupMemberNotices {
+    optional uint64 chat_group_id = 1;
+    repeated CChatRoomMemberNotice member_notices = 2;
+}
+
 message CChatRoom_SetSessionActiveChatRoomGroups_Response {
     repeated CChatRoomGroupState chat_states = 1;
     repeated uint64 virtualize_members_chat_group_ids = 2;
+    repeated CChatRoomGroupMemberNotices chat_group_notices = 3;
 }
 
 message CChatRoom_SetUserChatGroupPreferences_Request {
@@ -757,6 +770,12 @@ message CChatRoom_DeleteChatMessages_Request {
 
 message CChatRoom_DeleteChatMessages_Response {
     
+}
+
+message CChatRoom_DismissChatRoomNotice_Notification {
+    optional uint64 chat_group_id = 1;
+    optional fixed64 steamid_sender = 2;
+    optional EChatRoomNotice notice_type = 3;
 }
 
 message CChatRoom_UpdateMemberListView_Notification {
@@ -970,6 +989,13 @@ message CChatRoom_MessageReaction_Notification {
     optional bool is_add = 8;
 }
 
+message CChatRoom_ChatRoomNotice_Notification {
+    optional uint64 chat_group_id = 1;
+    optional fixed64 steamid_sender = 2;
+    optional EChatRoomNotice notice_type = 3;
+    optional bool active = 4;
+}
+
 message CChatUsability_ClientUsabilityMetrics_Notification {
     optional uint32 metrics_run_id = 1;
     optional uint32 client_build = 2;
@@ -1114,6 +1140,11 @@ enum EChatRoomMessageReactionType {
     k_EChatRoomMessageReactionType_Invalid = 0;
     k_EChatRoomMessageReactionType_Emoticon = 1;
     k_EChatRoomMessageReactionType_Sticker = 2;
+}
+
+enum EChatRoomNotice {
+    k_EChatRoomNotice_Invalid = 0;
+    k_EChatRoomNotice_Suspicious = 1;
 }
 
 enum EChatRoomMemberStateChange {

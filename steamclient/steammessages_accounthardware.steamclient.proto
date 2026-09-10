@@ -24,6 +24,10 @@ service AccountHardware {
     rpc RegisterSteamMachine(CAccountHardware_RegisterSteamMachine_Request) returns (CAccountHardware_RegisterSteamMachine_Response);
 }
 
+service AccountHardwarePromotions {
+    rpc RedeemFramePromoPackage(CAccountHardwarePromotions_RedeemFramePromoPackage_Request) returns (CAccountHardwarePromotions_RedeemFramePromoPackage_Response);
+}
+
 message CAccountHardware_RegisterSteamController_Request {
     optional string serial_number = 1;
     optional string controller_code = 2;
@@ -225,6 +229,15 @@ message CAccountHardware_RegisterSteamMachine_Request {
 }
 
 message CAccountHardware_RegisterSteamMachine_Response {
+    
+}
+
+message CAccountHardwarePromotions_RedeemFramePromoPackage_Request {
+    optional string serial = 1;
+    optional string computed_serial = 2;
+}
+
+message CAccountHardwarePromotions_RedeemFramePromoPackage_Response {
     
 }
 

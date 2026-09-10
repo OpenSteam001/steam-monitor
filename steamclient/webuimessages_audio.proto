@@ -21,6 +21,10 @@ service Audio {
     rpc SetHdmiCecEnabled(CAudio_SetHdmiCecEnabled_Request) returns (CAudio_SetHdmiCecEnabled_Response);
     rpc SendHdmiCecVolume(CAudio_SendHdmiCecVolume_Request) returns (CAudio_SendHdmiCecVolume_Response);
     rpc ToggleHdmiCecMute(CAudio_ToggleHdmiCecMute_Request) returns (CAudio_ToggleHdmiCecMute_Response);
+    rpc GetSpatializeEnabled(CAudio_GetSpatializeEnabled_Request) returns (CAudio_GetSpatializeEnabled_Response);
+    rpc SetSpatializeEnabled(CAudio_SetSpatializeEnabled_Request) returns (CAudio_SetSpatializeEnabled_Response);
+    rpc GetSpatializeSurroundEnabled(CAudio_GetSpatializeSurroundEnabled_Request) returns (CAudio_GetSpatializeSurroundEnabled_Response);
+    rpc SetSpatializeSurroundEnabled(CAudio_SetSpatializeSurroundEnabled_Request) returns (CAudio_SetSpatializeSurroundEnabled_Response);
     rpc ResetConfig(CAudio_ResetConfig_Request) returns (CAudio_ResetConfig_Response);
     rpc PlaySpeakerTestOnChannel(CAudio_PlaySpeakerTestOnChannel_Request) returns (CAudio_PlaySpeakerTestOnChannel_Response);
     rpc SetSpeakerConfiguration(CAudio_SetSpeakerConfiguration_Request) returns (CAudio_SetSpeakerConfiguration_Response);
@@ -35,6 +39,8 @@ message CAudio_GetSupportedFeatures_Response {
     optional bool use_bluetooth_for_mic = 2;
     optional bool reset_config = 3;
     optional bool bluetooth_audio_preference = 4;
+    optional bool spatialize = 5;
+    optional bool spatialize_surround = 6;
 }
 
 message CAudio_GetMonoDownmixEnabled_Request {
@@ -160,4 +166,36 @@ message CAudio_SetSpeakerConfiguration_Response {
     optional ESpeakerConfiguration config = 1;
     optional int32 channels = 2;
     optional string sdescription = 3;
+}
+
+message CAudio_GetSpatializeEnabled_Request {
+    
+}
+
+message CAudio_GetSpatializeEnabled_Response {
+    optional bool enabled = 1;
+}
+
+message CAudio_SetSpatializeEnabled_Request {
+    optional bool enabled = 1;
+}
+
+message CAudio_SetSpatializeEnabled_Response {
+    
+}
+
+message CAudio_GetSpatializeSurroundEnabled_Request {
+    
+}
+
+message CAudio_GetSpatializeSurroundEnabled_Response {
+    optional bool enabled = 1;
+}
+
+message CAudio_SetSpatializeSurroundEnabled_Request {
+    optional bool enabled = 1;
+}
+
+message CAudio_SetSpatializeSurroundEnabled_Response {
+    
 }

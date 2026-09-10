@@ -2,6 +2,7 @@ syntax = "proto2";
 
 import "steammessages_base.proto";
 import "steammessages_unified_base.steamclient.proto";
+import "steammessages_clientserver_gameservers.proto";
 
 option cc_generic_services = true;
 
@@ -11,6 +12,7 @@ service GameServers {
     rpc QueryByFakeIP(CGameServers_QueryByFakeIP_Request) returns (CGameServers_GameServerQuery_Response);
     rpc FriendsQuery(CGameServers_FriendsQuery_Request) returns (CGameServers_FriendsQuery_Response);
     rpc ReportServerPingReply(CGameServers_ReportServerPingReply_Notification) returns (NoResponse);
+    rpc MasterServerQuery(CGameServers_MasterServerQuery_Request) returns (CGameServers_MasterServerQuery_Response);
 }
 
 service GameServerClient {
@@ -125,6 +127,15 @@ message CGameServers_ReportServerPingReply_Notification {
     optional CMsgGameServerPingQueryData server_data = 1;
     optional uint32 ping_ms = 2;
     optional string client_sdr_location_string = 3;
+}
+
+message CGameServers_MasterServerQuery_Request {
+    optional uint32 appid = 1;
+    optional CMsgClientGMSServerQuery query_data = 2;
+}
+
+message CGameServers_MasterServerQuery_Response {
+    optional CMsgGMSClientServerQueryResponse query_response = 1;
 }
 
 message GameServerClient_QueryServerData_Request {

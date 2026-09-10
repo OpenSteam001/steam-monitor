@@ -83,6 +83,8 @@ message CMsgClientSettings {
     optional bool controllerconnect_notification_sound = 4036;
     optional bool controller_low_battery_notification_toast = 4037;
     optional bool controller_low_battery_notification_sound = 4038;
+    optional bool logged_in_as_user_notification_toast = 4039;
+    optional bool logged_in_as_user_notification_sound = 4040;
     optional bool smooth_scroll_webviews = 5000;
     optional bool enable_gpu_accelerated_webviews = 5001;
     optional bool enable_hardware_video_decoding = 5003;
@@ -109,6 +111,7 @@ message CMsgClientSettings {
     optional bool library_display_icon_in_game_list = 7007;
     optional bool ready_to_play_includes_streaming = 7008;
     optional bool show_steam_deck_info = 7009;
+    optional bool library_home_big_art = 7010;
     optional bool enable_shader_precache = 8000;
     optional bool enable_shader_background_processing = 8001;
     optional uint64 shader_precached_size = 8002;
@@ -168,6 +171,8 @@ message CMsgClientSettings {
     optional string startup_movie_local_path = 16001;
     optional bool startup_movie_shuffle = 16002;
     optional bool startup_movie_used_for_resume = 16003;
+    optional string screensaver_current_id = 16004;
+    optional string screensaver_settings = 16005;
     optional bool game_notes_enable_spellcheck = 17001;
     optional int32 screenshot_items_per_row = 18000;
     optional string gamerecording_background_path = 18201;
@@ -260,8 +265,6 @@ message CMsgClientSettings {
     optional int32 system_idle_screensaver_battery_sec = 24008;
     optional int32 system_idle_screensaver_ac_sec = 24009;
     optional bool vr_show_perf_graph_in_hmd = 25000;
-    optional bool vr_audio_spatialize = 25001;
-    optional bool vr_audio_spatialize_surround = 25002;
     optional bool accessibility_debug_visualizer = 26000;
     optional bool accessibility_screen_reader_enabled = 26001;
     optional float accessibility_screen_reader_rate = 26002;
@@ -293,6 +296,7 @@ message CMsgClientSettings {
     optional bool oobe_stage_2_completed = 28004;
     optional bool oobe_stage_2_test_mode_enabled = 28005;
     optional bool force_stage_2_oobe = 28006;
+    optional bool compat_show_all_tools = 29000;
 }
 
 enum EClientSettingStore {

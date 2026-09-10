@@ -10,6 +10,8 @@ option optimize_for = SPEED;
 service Screensaver {
     rpc GetActiveState(CScreensaver_GetActiveState_Request) returns (CScreensaver_GetActiveState_Response);
     rpc NotifyActiveStateChanged(CScreensaver_ActiveStateChanged_Notification) returns (WebUINoResponse);
+    rpc GetLocalScreensavers(CScreensaver_GetLocalScreensavers_Request) returns (CScreensaver_GetLocalScreensavers_Response);
+    rpc ForceScreensaver(CScreensaver_ForceScreensaver_Request) returns (CScreensaver_ForceScreensaver_Response);
 }
 
 message CScreensaver_GetActiveState_Request {
@@ -22,4 +24,24 @@ message CScreensaver_GetActiveState_Response {
 
 message CScreensaver_ActiveStateChanged_Notification {
     optional bool active = 1;
+}
+
+message CScreensaver_GetLocalScreensavers_Request {
+    
+}
+
+message CScreensaver_GetLocalScreensavers_Response {
+    repeated Screensaver screensavers = 1;
+    message Screensaver {
+        optional string id = 1;
+        optional string path = 2;
+    }
+}
+
+message CScreensaver_ForceScreensaver_Request {
+    optional bool enabled = 1;
+}
+
+message CScreensaver_ForceScreensaver_Response {
+    
 }

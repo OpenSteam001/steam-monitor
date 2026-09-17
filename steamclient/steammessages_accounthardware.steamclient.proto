@@ -234,7 +234,7 @@ message CAccountHardware_RegisterSteamMachine_Response {
 
 message CAccountHardwarePromotions_RedeemFramePromoPackage_Request {
     optional string serial = 1;
-    optional string computed_serial = 2;
+    optional string component_serial = 2;
 }
 
 message CAccountHardwarePromotions_RedeemFramePromoPackage_Response {

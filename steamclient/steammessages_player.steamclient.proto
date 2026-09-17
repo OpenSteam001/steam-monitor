@@ -556,6 +556,7 @@ message CPlayer_GetUserStats_Request {
     optional bytes sha_schema = 3;
     optional uint32 crc_stats = 4;
     optional uint32 crc_schema = 5;
+    optional bool app_running = 6;
 }
 
 message CPlayer_GetUserStats_Response {

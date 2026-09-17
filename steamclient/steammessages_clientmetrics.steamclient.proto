@@ -257,6 +257,7 @@ message CClientMetrics_GamePerformance_Notification {
         optional uint32 framegen_frame_rate = 4;
         optional GamePerformanceSettings game_settings = 5;
         optional uint32 seconds_since_active = 6;
+        optional uint32 frame_rate_limit = 7;
     }
     
     optional UserSystemInformation system_info = 3;
